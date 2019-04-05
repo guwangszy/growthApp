@@ -5,7 +5,7 @@ import React from 'react';
 import {View,Text} from 'react-native';
 import TitleBar from '../../common/TitleBar'
 import {Form,FieldType} from '../../common/form/Form'
-
+import {SimpleBtn} from '../../common/form/Buttons'
 
 export default class addClass extends React.Component{
     constructor(props){

@@ -46,7 +46,7 @@ export default class Classes extends React.Component{
         }
     }
     componentWillMount(){
-        initList();//初始化列表数据
+        this.initList();//初始化列表数据
     }
     // 初始化数据
     initList(){

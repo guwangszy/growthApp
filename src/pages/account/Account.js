@@ -7,6 +7,7 @@ import {SimpleBtn} from '../../common/form/Buttons'
 import images from '../../common/image'
 import Icon from '../../resource/icon/Iconfont'
 import {width} from '../../common/AdapterUtil'
+import console = require('console');
 
 class Listitem extends React.Component{
     constructor(props){
@@ -54,7 +55,8 @@ export default class Account extends React.Component{
      * 跳转班级
      */
     toClass(){
-
+        console.log('1111111111')
+        this.props.navigation.navigate('班级')
     }
     render(){
         return(

@@ -2,10 +2,38 @@
 import createIconSet from 'react-native-vector-icons/lib/create-icon-set';
 
 
-const IconMapper = {
+const IconMapper ={
+    "banjitongzhi":58880,
+    "mine-selected":58881,
+    "wode":58882,
+    "laoshi-nv":58883,
+    "icon-nan":58884,
+    "touxiangnvhai":58885,
+    "touxiang1":58886,
+    "touxiangnv":58887,
+    "yonghu":58889,
+    "mimaxiugai":58890,
+    "banjigonggao":58894,
+    "banben":58896,
+    "banjizhuye":58897,
+    "banjidongtai":58902,
+    "chengchang":58905,
+    "xuesheng":58907,
+    "banjiquan":58919,
     "chengchangzhi":58922,
-    "chengchang":58996
-}
+    "banjibang":58924,
+    "banbengengxin":58930,
+    "yonghu1":59962,
+    "xuesheng-nan":59200,
+    "touxiang":59333,
+    "xiangyou":59334,
+    "touxiangnanhai":58962,
+    "xiugaimima":58975,
+    "xuesheng1":58989,
+    "banjifengcai":59128
+};
+
+
 
 const iconSet = createIconSet(IconMapper, 'Icon', 'iconfont.ttf');   //  'DIYIcon'可自定义名称
  

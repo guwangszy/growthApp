@@ -34,7 +34,7 @@ function TopLevelNavigator(isLogin) {
             navigationOptions:({navigation}) =>({header:null})
         }
     }, {
-            initialRouteName: isLogin ? 'Home' : 'Home',//系统默认进入的第一个页面
+            initialRouteName: isLogin ? 'Home' : 'Login',//系统默认进入的第一个页面
             headerMode: 'screen',
             headerTransparent: true,
             headerBackground: '#5691EF',

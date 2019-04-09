@@ -38,6 +38,7 @@ class ClassListItem extends React.Component{
     }
 }
 export default class Classes extends React.Component{
+    _keyExtractor = (item, index) => item.id;
     constructor(props){
         super(props)
         this.state={
@@ -66,17 +67,19 @@ export default class Classes extends React.Component{
                 <View style={{marginTop:20}}>
                     <Text style={{marginLeft:10}}>我创建的</Text>
                     <FlatList
-                    data={[{id:1,name: 'Title Text', code: 'item1',num:'12'},{id:2,name: 'Title Text3', code: 'item1',num:'12'}]}
+                    keyExtractor={this._keyExtractor}
+                    data={[{id:'1',name: 'Title Text', code: 'item1',num:'12'},{id:'2',name: 'Title Text3', code: 'item1',num:'12'}]}
                     renderItem={({item, separators}) => ( <ClassListItem item ={item}/>  )}
                     /> 
                 </View>
-                <View style={{marginTop:20}}>
+                {/* <View style={{marginTop:20}}>
                     <Text style={{marginLeft:10}}>我创建的</Text>
                     <FlatList
+                    keyExtractor={this._keyExtractor}
                     data={[{id:1,name: 'Title Text', code: 'item1',num:'12'},{id:2,name: 'Title Text3', code: 'item1',num:'12'}]}
                     renderItem={({item, separators}) => ( <ClassListItem item ={item}/>  )}
                     /> 
-                </View>
+                </View> */}
                 
             </View>
         )

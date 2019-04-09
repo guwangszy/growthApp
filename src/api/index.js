@@ -4,7 +4,7 @@ import storage from '../storage/index'
 import Utils from '../common/Utils'
 
 
-let host = ''
+let base = 'https://www.easy-mock.com/mock/5caca29b3040f52aa81fa9f4/growth'
 
 /**
  * API 请求
@@ -24,7 +24,7 @@ async function apiFetch (method, url, params, contentType) {
     if(contentType){
         headers["Content-Type"]=contentType;
     }
-    url =  Host()+url;
+    url =  base + url;
     if(global.ISDEBUG){
         console.log("==========发起请求(start)============")
         console.log("====url====",url,method,params)

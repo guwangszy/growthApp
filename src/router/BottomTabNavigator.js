@@ -6,13 +6,14 @@ import Icon from '../resource/icon/Iconfont'
 import Growth from '../pages/growth/Growth'
 import Account from '../pages/account/Account'
 import Classes from '../pages/classes/Classes'
+import Circle from '../pages/circle/Circle'
 
 
 //所有需要用到路由跳转的页面,需在此页面注册入路由
 export default BottomTabNavigator = createBottomTabNavigator  (
   { 
     '班级圈': { 
-      screen: Classes,
+      screen: Circle,
       navigationOptions: ({ navigation }) => ({})
     },
     '成长册': { 

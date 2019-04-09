@@ -7,17 +7,17 @@ import {SimpleBtn} from '../../common/form/Buttons'
 import images from '../../common/image'
 import Icon from '../../resource/icon/Iconfont'
 import {width} from '../../common/AdapterUtil'
-import console = require('console');
 
 class Listitem extends React.Component{
     constructor(props){
         super(props)
+        this.state={}
     }
     render(){
         return (
             <View style={[{flex: 1,flexDirection:'row',justifyContent:'center',
             backgroundColor: '#fff'},this.props.showBorder?{borderBottomWidth:1,borderBottomColor:'#ebebeb'}:{}]}>
-                <TouchableOpacity onPress={this.props.onPress?this.props.onPress():()=>{}}>
+                <TouchableOpacity onPress={()=>{this.props.onPress?this.props.onPress():null}}>
                     <View style={{flexDirection:'row',justifyContent:'space-between',
                     alignItems: "center",height:50,width:width*0.95}}>
                         {this.props.icon?(<Icon name={this.props.icon} size={20} color={'#4AB567'}/>):null}
@@ -39,25 +39,6 @@ export default class Account extends React.Component{
             
         }
     }
-    /**
-     * 完善信息
-     */
-    toUpUser(){
-
-    }
-    /**
-     * 修改密码
-     */
-    toPassw(){
-
-    }
-    /**
-     * 跳转班级
-     */
-    toClass(){
-        console.log('1111111111')
-        this.props.navigation.navigate('班级')
-    }
     render(){
         return(
             <View style={styles.container}>
@@ -77,11 +58,11 @@ export default class Account extends React.Component{
                 </View>
                 <ScrollView>
                     <View>
-                        <Listitem showBorder={true} icon={'yonghu1'} text={'完善信息'} onPress={()=>this.toUpUser()}></Listitem>
-                        <Listitem showBorder={true} icon={'xiugaimima'} text={'修改密码'} onPress={()=>this.toPassw()}></Listitem>
+                        <Listitem showBorder={true} icon={'yonghu1'} text={'完善信息'} onPress={()=>{}}></Listitem>
+                        <Listitem showBorder={true} icon={'xiugaimima'} text={'修改密码'} onPress={()=>{}}></Listitem>
                     </View>
                     <View style={{marginTop:20}}>
-                        <Listitem showBorder={true} icon={'banjizhuye'} text={'我的班级'} onPress={()=>this.toClass()}></Listitem>
+                        <Listitem showBorder={true} icon={'banjizhuye'} text={'我的班级'} onPress={()=>{this.props.navigation.navigate('班级')}}></Listitem>
                         <Listitem icon={'banben'} text={'版本信息'} subtext={'v. '+global.appVersion}></Listitem>
                     </View>
                     <SimpleBtn onPress={() => this.submit()} text={'退出'}/>

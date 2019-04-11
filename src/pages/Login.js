@@ -64,23 +64,16 @@ export default class Login extends React.Component{
         password: this.state.password,
         deviceId: global.deviceId
       }
-      if(global.ISDEBUG){
-        this.props.navigation.navigate('班级圈');
-        return 
-      }
       api.post(Config.service.login, JSON.stringify(params)).then((ret) => {
-        if (ret.returnCode === '0' && ret.bean.flage === 'success') {
-          storage.setItem('userInfo', ret.bean, 7 * 24 * 60 * 60 * 1000);
-          storage.setItem('usrId', ret.bean.userId, 7 * 24 * 60 * 60 * 1000);
-          storage.setItem('accesstoken', ret.bean.userId + '_' + device.deviceId, 7 * 24 * 60 * 60 * 1000);
+        if (ret.errcode === '0') {
+          storage.setItem('userInfo', ret.data);
+          storage.setItem('usrId', ret.data.userId);
           
-          global.USRID = ret.bean.userId // 全局的用户id 
+          global.USRID = ret.data.userId // 全局的用户id 
           Utils.showToast("登录成功！")
           this.props.navigation.navigate('班级圈');
-        } else if (ret.returnCode === '0' && ret.bean.flag === '9') {
-          Utils.showToast("该账户已在其他设备登录！")
-        } else if (ret.returnCode === '0' && ret.bean.flage === 'error') {
-          Utils.showToast(ret.bean.errorInfo)
+        }else if (ret.returnCode === '0') {
+          Utils.showToast(ret.errmsg)
         } else {
           Utils.showToast("登录失败！")
         }

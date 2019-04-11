@@ -7,6 +7,10 @@ import {SimpleBtn} from '../../common/form/Buttons'
 import images from '../../common/image'
 import Icon from '../../resource/icon/Iconfont'
 import {width} from '../../common/AdapterUtil'
+import storage from '../../storage/index'
+import api from '../../api/index'
+import Config from '../../api/Config'
+import Router from '../../router/Index';
 
 class Listitem extends React.Component{
     constructor(props){
@@ -39,6 +43,22 @@ export default class Account extends React.Component{
             
         }
     }
+    logout(){
+        api.post(Config.service.logout, JSON.stringify({
+            usrId: global.USRID,
+            deviceId: global.deviceId
+        })).then((ret) => {
+            if (ret && ret.errcode === '0') {
+            storage.removeItem('userInfo');
+            storage.removeItem('usrId');
+            Router.navigate('Login',{});
+            }
+        }).catch(err => {
+            storage.removeItem('userInfo');
+            storage.removeItem('usrId');
+            Router.navigate('Login',{});
+        })
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -65,7 +85,7 @@ export default class Account extends React.Component{
                         <Listitem showBorder={true} icon={'banjizhuye'} text={'我的班级'} onPress={()=>{this.props.navigation.navigate('班级')}}></Listitem>
                         <Listitem icon={'banben'} text={'版本信息'} subtext={'v. '+global.appVersion}></Listitem>
                     </View>
-                    <SimpleBtn onPress={() => this.submit()} text={'退出'}/>
+                    <SimpleBtn onPress={() => this.logout()} text={'退出'}/>
                 </ScrollView>
             </View>
         ) 

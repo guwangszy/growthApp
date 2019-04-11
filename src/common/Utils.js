@@ -1,6 +1,7 @@
 
 import { Platform} from 'react-native';
 import {RNToAndroid} from '../native/index'
+import { RRCLoading ,RRCAlert} from 'react-native-overlayer';
 export default class utils {
     
     static isAndroid(){

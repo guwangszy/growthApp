@@ -29,7 +29,6 @@ async function apiFetch (method, url, params, contentType) {
         console.log("==========发起请求(start)============")
         console.log("====url====",url,method,params)
         console.log("==========发起请求(end)============")
-        return new Promise(function (resolve, reject) {reject({ status: 0 });  })
     }
     return new Promise(function (resolve, reject) {  
         fetch(url, {  
@@ -39,23 +38,18 @@ async function apiFetch (method, url, params, contentType) {
             }) 
             .then((response) => { 
                 Utils.hideLoading();
+                json = response.json()
                 if(global.ISDEBUG){
                     console.log("==========返回数据(start)============")
+                    console.log(json)
+                    console.log("==========返回数据(end)============")
                 }
                 if (response.ok) {  
-                    return response.json(); 
+                    return  resolve(json);
                 } else {  
                     reject({status:response.status})  
                 }  
             })
-            .then((response) => {
-                json = response.bean
-                if(global.ISDEBUG){
-                    console.log(json)
-                    console.log("==========返回数据(end)============")
-                }
-                resolve(json);
-            }) 
             .catch((err)=> {
                 Utils.hideLoading();
                 reject({ status: -1 }); 

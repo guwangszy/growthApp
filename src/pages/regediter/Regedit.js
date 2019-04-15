@@ -7,27 +7,33 @@ import {View, Text,TextInput,StyleSheet, TouchableWithoutFeedback, TouchableOpac
 import {Form,FieldType} from '../../common/form/Form'
 import TitleBar from '../../common/TitleBar'
 import ActionSheet from 'react-native-actionsheet'
+import Config from '../../api/Config'
+import api from '../../api/index'
 import {width} from '../../common/AdapterUtil'
 import {SimpleBtn} from '../../common/form/Buttons'
-import utils from '../../common/Utils';
+import Utils from '../../common/Utils';
 
 export default class Identity extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       title:'注册',
-      actionSheetOptions:['男','女','取消']
+      actionSheetOptions:['男','女','取消'],
+      type:'1',
     }
   }
   componentWillMount(){
-
+    let data = this.props.navigation.state.params;
+    this.setState({
+      type:data.type
+    })
   }
   chooseActionSheet(index){
     if (index != (this.state.actionSheetOptions.length- 1)) {
       let options = {
         sex:{
-            value: index,
-            text: index===0?'男':'女',
+          value: index,
+          text: index===0?'男':'女',
         }
       }
       this.refs.form.setValue(options)
@@ -79,7 +85,32 @@ export default class Identity extends React.Component{
     }
   }
   submit(){
-    utils.showToast('提交');
+    var value = this.refs.form.getValue();
+    var verify = this.refs.form.getVerify();
+    if (verify) {
+      if(value.password != value.repassword){
+        Utils.showToast("密码输入不一致！")
+        return false;
+      }
+      //type:0:新增 1：修改
+      let params={
+        username:value.username,
+        phone:value.phone,
+        password:value.password,
+        age:value.age,
+        type:this.state.type,
+        sex:value.sex,
+      }
+      console.log(params)
+      api.post(Config.service.regedit, JSON.stringify(params)).then((ret) => {
+        if (ret.errcode === 0) {
+          Utils.showToast("注册成功！")
+          this.props.navigation.navigate('Login');
+        } else {
+          Utils.showToast("注册失败！")
+        }
+      })
+    }
   }
   render(){
     return (

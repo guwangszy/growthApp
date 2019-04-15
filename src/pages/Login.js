@@ -69,7 +69,9 @@ export default class Login extends React.Component{
           storage.setItem('userInfo', ret.data);
           storage.setItem('usrId', ret.data.userId);
           
+          global.USERINFO = ret.data // 全局的用户id 
           global.USRID = ret.data.userId // 全局的用户id 
+          global.TYPE = ret.data.type // 全局的用户id 
           Utils.showToast("登录成功！")
           this.props.navigation.navigate('班级圈');
         }else if (ret.returnCode === '0') {

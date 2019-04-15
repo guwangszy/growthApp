@@ -46,7 +46,6 @@ class ListItem extends React.Component{
                         </View>
                     </View>
                 </View>
-
             </View>
         )
     }

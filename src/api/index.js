@@ -3,7 +3,6 @@ import {RNToAndroid} from '../native/index'
 import storage from '../storage/index'
 import Utils from '../common/Utils'
 
-
 let base = 'https://www.easy-mock.com/mock/5caca29b3040f52aa81fa9f4/growth'
 
 /**

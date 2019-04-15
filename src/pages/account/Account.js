@@ -15,7 +15,12 @@ import Router from '../../router/Index';
 class Listitem extends React.Component{
     constructor(props){
         super(props)
-        this.state={}
+        this.state={
+            username:'',
+            type:'1',
+            phone:'',
+
+        }
     }
     render(){
         return (
@@ -67,12 +72,12 @@ export default class Account extends React.Component{
                         <Image source={images.nv} style={{justifyContent: "center", height: 100, width: 100}} resizeMode="contain" />
                         <View style={{marginTop: 15,marginLeft: 20,flexDirection:"column"}}>
                             <View style={{flexDirection:"row",alignItems: "center"}}>
-                                <Text style={{fontSize:18,color:'#fff'}}>张无忌</Text>
+                                <Text style={{fontSize:18,color:'#fff'}}>{global.USERINFO.username}</Text>
                                 <View style={{borderRadius:20,marginLeft: 20,width:50, backgroundColor:'red',alignItems: "center"}}>
-                                    <Text style={{color:'#fff'}}>教师</Text>
+                                    <Text style={{color:'#fff'}}>{global.USERINFO.type==='1'?"教师":"学生"}</Text>
                                 </View>  
                             </View>
-                            <View style={{marginTop: 5}}><Text style={{color:'#fff'}}>13574194350</Text></View>
+                            <View style={{marginTop: 5}}><Text style={{color:'#fff'}}>{global.USERINFO.phone}</Text></View>
                         </View>
                     </View>
                 </View>

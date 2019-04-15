@@ -7,12 +7,16 @@ import TitleBar from '../../common/TitleBar'
 import Icon from '../../resource/icon/Iconfont'
 import {width} from '../../common/AdapterUtil'
 import {Dashedbtn} from '../../common/form/Buttons'
-
+import SimpleList from '../../common/List'
+import api from '../../api/index'
+import Config from '../../api/Config'
 class ClassListItem extends React.Component{
     constructor(props){
         super(props)
     }
     render(){
+        console.log('------',this.props.item)
+        console.log('------',this.props.separators) 
         return (
             <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:12}}>
                 <TouchableOpacity onPress={() =>{}}>
@@ -38,26 +42,50 @@ class ClassListItem extends React.Component{
     }
 }
 export default class Classes extends React.Component{
-    _keyExtractor = (item, index) => item.id;
+    _isRefreshing = false;
+    _isFooter=false
     constructor(props){
         super(props)
         this.state={
             title:'班级',
-
+            myself:[],
+            page:1,
+            pageSize:10
         }
     }
     componentWillMount(){
-        this.initList();//初始化列表数据
+        this.initList(1);//初始化列表数据
     }
     // 初始化数据
-    initList(){
-
+    initList(page){
+        let params={
+            userId:global.USRID,
+            page:page
+        }
+        _isRefreshing=true
+        api.post(Config.service.classList,JSON.stringify(params)).then((ret)=>{
+            if (ret.errcode === 0) {
+                _isRefreshing=false
+                page = ret.data.myself.page
+                total = ret.data.myself.total
+                if(total/this.state.pageSize === page || !ret.data.myself.data){
+                    this._isFooter=true
+                }
+                this.setState({
+                    myself:ret.data.myself.list,
+                    page:page+1
+                })
+            }
+        })
     }
     /**
      * 跳转添加班级
      */
     toAddClasses(){
         this.props.navigation.navigate('ClassAdd', { callback: (ret) => this.initList() });
+    }
+    onRefresh(){
+        this.initList(1)
     }
     render(){
         return (
@@ -66,10 +94,13 @@ export default class Classes extends React.Component{
                 <Dashedbtn width={width*0.9} onPress={() => this.toAddClasses()} text={'新建班级'}/>
                 <View style={{marginTop:20}}>
                     <Text style={{marginLeft:10}}>我创建的</Text>
-                    <FlatList
-                    keyExtractor={this._keyExtractor}
-                    data={[{id:'1',name: 'Title Text', code: 'item1',num:'12'},{id:'2',name: 'Title Text3', code: 'item1',num:'12'}]}
-                    renderItem={({item, separators}) => ( <ClassListItem item ={item}/>  )}
+                    <SimpleList
+                        onRefresh={()=>this.onRefresh()}
+                        refreshing={this._isRefreshing}
+                        onEndReached={()=>{}}
+                        isFooter={this._isFooter}
+                        data={this.state.myself}
+                        renderItem={(item) => (<ClassListItem item ={item} />  )}
                     /> 
                 </View>
                 {/* <View style={{marginTop:20}}>

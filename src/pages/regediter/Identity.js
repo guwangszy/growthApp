@@ -25,9 +25,9 @@ export default class Identity extends React.Component{
    */
   toRegidit(type){
     if(type === '0'){// 老师
-      this.props.navigation.navigate('Regedit');
+      this.props.navigation.navigate('Regedit',{type:1});
     }else if(type === '1'){ //学生
-      this.props.navigation.navigate('Regedit');
+      this.props.navigation.navigate('Regedit',{type:2});
     }
   }
   render(){

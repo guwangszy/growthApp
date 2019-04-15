@@ -19,6 +19,9 @@ export default class App extends React.Component {
       storage.getItem('userInfo').then(ret => {
         if (ret) {
           global.USRID = ret.userId // 全局的用户id 
+          global.USERINFO = ret // 全局的用户id 
+          global.USRID = ret.userId // 全局的用户id 
+          global.TYPE = ret.type // 全局的用户id 
           that.setState({
             isLogin:true
           })

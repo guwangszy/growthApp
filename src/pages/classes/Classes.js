@@ -63,7 +63,7 @@ export default class Classes extends React.Component{
             page:page
         }
         _isRefreshing=true
-        api.post(Config.service.classList,JSON.stringify(params)).then((ret)=>{
+        api.post(Config.service.classList,params).then((ret)=>{
             if (ret.errcode === 0) {
                 _isRefreshing=false
                 page = ret.data.myself.page

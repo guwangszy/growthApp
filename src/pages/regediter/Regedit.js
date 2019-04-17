@@ -102,7 +102,7 @@ export default class Identity extends React.Component{
         sex:value.sex,
       }
       console.log(params)
-      api.post(Config.service.regedit, JSON.stringify(params)).then((ret) => {
+      api.post(Config.service.regedit,params).then((ret) => {
         if (ret.errcode === 0) {
           Utils.showToast("注册成功！")
           this.props.navigation.navigate('Login');

@@ -78,6 +78,6 @@ export default {
       return apiFetch('GET', url)
     },
     post: function (url, params) {
-      return apiFetch('POST', url, params)
+      return apiFetch('POST', url, JSON.stringify({data:params}))
     }
   }

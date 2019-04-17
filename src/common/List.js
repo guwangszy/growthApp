@@ -47,16 +47,16 @@
         return (
             <View>
                 <FlatList
-                    style={{marginBottom:50}}
+                    style={this.props.style?this.props.style:{marginBottom:50}}
                     data={this.props.data}
-                    renderItem={({item, separators})=>this.props.renderItem(item,separators)}
+                    renderItem={({item, index})=>this.props.renderItem(item,index)}
                     onRefresh={() => this.props.onRefresh()}
                     refreshing={this.props.refreshing}
                     ListFooterComponent={() => this._renderFooter(this.props.isFooter)}
                     onEndReached={() => this.props.onEndReached()}
                     // 注意此参数是一个比值而非像素单位。比如，0.5 表示距离内容最底部的距离为当前列表可见长度的一半时触发(0---1之间)
                     onEndReachedThreshold={0.1}
-                    keyExtractor={(item, index)=>`${item.item_id}-${index}`}
+                    keyExtractor={(item, index)=>`${item.id}-${index}`}
                 />
             </View>
         )

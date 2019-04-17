@@ -64,7 +64,7 @@ export default class Login extends React.Component{
         password: this.state.password,
         deviceId: global.deviceId
       }
-      api.post(Config.service.login, JSON.stringify(params)).then((ret) => {
+      api.post(Config.service.login, params).then((ret) => {
         if (ret.errcode === '0') {
           storage.setItem('userInfo', ret.data);
           storage.setItem('usrId', ret.data.userId);

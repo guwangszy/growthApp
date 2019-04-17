@@ -46,7 +46,7 @@ export default class Growth extends React.Component{
         super(props)
         this.state = {
             title:'成长册',
-            growth:[],
+            data:[],
             start:0,
             limit:10,
             total:0,
@@ -63,7 +63,7 @@ export default class Growth extends React.Component{
         }
         this._isload=true
         this._isRefreshing=true
-        api.post(Config.service.growthList,JSON.stringify(params)).then((ret)=>{
+        api.post(Config.service.growthList,params).then((ret)=>{
             this._isload=false
             if (ret.errcode === 0) {
                 this._isRefreshing=false
@@ -72,9 +72,9 @@ export default class Growth extends React.Component{
                 if(total/this.state.pageSize === page || !ret.data.data){
                     this._isFooter=true
                 }
-                data = [...this.state.growth, ...ret.data.list];
+                data = [...this.state.data, ...ret.data.list];
                 this.setState({
-                    growth: data,
+                    data: data,
                     page: page+1,
                     total:total
                 })
@@ -85,7 +85,7 @@ export default class Growth extends React.Component{
         console.log(this._isload)
         if(!this._isload){
             this.setState({
-                growth:[],
+                data:[],
                 start:0,
             }, () => {
                 this.initList()
@@ -94,7 +94,7 @@ export default class Growth extends React.Component{
     }
     onEndReached(){
         if(!this._isload){
-            let length = this.state.growth.length;
+            let length = this.state.data.length;
             if (length < this.state.total) {
                 this.setState({
                     start:this.state.start+this.state.limit,
@@ -115,11 +115,7 @@ export default class Growth extends React.Component{
                 refreshing={this._isRefreshing}
                 onEndReached={()=>this.onEndReached()}
                 isFooter={this._isFooter}
-                data={this.state.growth}
-                getItemLayout={(data, index) => (
-                    //如果我们知道行高可以用此方法节省动态计算行高的开销。  行高+间距 x 个数
-                    { length: 600, offset: (600 + 2) * index, index }
-                )}
+                data={this.state.data}
                 renderItem={(item) => ( <Groethitem item={item}></Groethitem> )}
             />
           </View>

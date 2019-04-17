@@ -49,10 +49,10 @@ export default class Account extends React.Component{
         }
     }
     logout(){
-        api.post(Config.service.logout, JSON.stringify({
+        api.post(Config.service.logout, {
             usrId: global.USRID,
             deviceId: global.deviceId
-        })).then((ret) => {
+        }).then((ret) => {
             if (ret && ret.errcode === '0') {
             storage.removeItem('userInfo');
             storage.removeItem('usrId');

@@ -9,8 +9,22 @@ export class SimpleBtn extends React.Component{
     return (
       <TouchableWithoutFeedback activeOpacity={0.9} onPress={() => this.props.onPress? this.props.onPress():{} }>
         <View style={[styles.btnBox]}>
-          <View style={[styles.btn,{width: this.props.width?this.props.width:width * 0.8}]}>
-        <Text style={{color: "#fff", fontSize: 18, fontWeight: "bold"}}>{this.props.text}</Text>
+          <View style={[this.props.style?this.props.style:styles.btn,{width: this.props.width?this.props.width:width * 0.8}]}>
+            <Text style={{color: "#fff", fontSize: 18, fontWeight: "bold"}}>{this.props.text}</Text>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    )
+  }
+}
+export class SmallBtn extends React.Component{
+
+  render() {
+    return (
+      <TouchableWithoutFeedback activeOpacity={0.9} onPress={() => this.props.onPress? this.props.onPress():{} }>
+        <View style={[styles.btnBox]}>
+          <View style={[this.props.style?this.props.style:styles.btn,{width: this.props.width?this.props.width:width * 0.8}]}>
+            <Text style={{color: "#fff", fontSize: 12}}>{this.props.text}</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -23,8 +37,8 @@ export class Dashedbtn extends React.Component{
     return (
       <TouchableWithoutFeedback activeOpacity={0.9} onPress={() => this.props.onPress? this.props.onPress():{} }>
         <View style={[styles.btnBox]}>
-          <View style={[styles.Dashedbtn,{width: this.props.width?this.props.width:width * 0.8}]}>
-        <Text style={{color: "#4AB567", fontSize: 18, fontWeight: "bold"}}>{this.props.text}</Text>
+          <View style={[styles.dashedbtn,{width: this.props.width?this.props.width:width * 0.8}]}>
+            <Text style={{color: "#4AB567", fontSize: 18, fontWeight: "bold"}}>{this.props.text}</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -47,7 +61,7 @@ const styles = StyleSheet.create({
       height: 50,
       lineHeight: 50
     },
-    Dashedbtn: {
+    dashedbtn: {
       alignItems: "center", 
       justifyContent:'center',
       marginTop: 30,

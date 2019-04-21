@@ -3,7 +3,6 @@ import {
     StyleSheet, Text, View,
     Dimensions, ScrollView, TouchableNativeFeedback,
 } from 'react-native';
-import utils from '../../common/utils'
 import { width, unitWidth, titleHeight, statusBarHeight } from '../AdapterUtil'
 
 export class SimpleDetail extends Component {

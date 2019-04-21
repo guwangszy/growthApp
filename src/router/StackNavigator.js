@@ -10,6 +10,8 @@ import Identity from '../pages/regediter/Identity'
 import Regedit from '../pages/regediter/Regedit'
 // 班级
 import ClassAdd from '../pages/classes/Add'
+import ClassDetail from '../pages/classes/Detail'
+
 
 function TopLevelNavigator(isLogin) {
     return createStackNavigator({
@@ -31,6 +33,10 @@ function TopLevelNavigator(isLogin) {
         },
         ClassAdd: {
             screen: ClassAdd,
+            navigationOptions:({navigation}) =>({header:null})
+        },
+        ClassDetail: {
+            screen: ClassDetail,
             navigationOptions:({navigation}) =>({header:null})
         }
     }, {

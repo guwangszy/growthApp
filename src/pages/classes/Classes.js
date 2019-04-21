@@ -15,11 +15,9 @@ class ClassListItem extends React.Component{
         super(props)
     }
     render(){
-        console.log('------',this.props.item)
-        console.log('------',this.props.separators) 
         return (
             <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:12}}>
-                <TouchableOpacity onPress={() =>{}}>
+                <TouchableOpacity onPress={()=>{console.log(this.props.item.id);this.props.navigation.navigate('ClassDetail',{id:this.props.item.id})}}>
                     <View style={{flexDirection:'column',justifyContent:'center',
                     backgroundColor:'#FEFEFE',height:70,width:width*0.95}}>
                         <View style={{height:100,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>
@@ -100,18 +98,9 @@ export default class Classes extends React.Component{
                         onEndReached={()=>{}}
                         isFooter={this._isFooter}
                         data={this.state.myself}
-                        renderItem={(item) => (<ClassListItem item ={item} />  )}
+                        renderItem={(item) => (<ClassListItem item ={item} navigation={this.props.navigation} />  )}
                     /> 
                 </View>
-                {/* <View style={{marginTop:20}}>
-                    <Text style={{marginLeft:10}}>我创建的</Text>
-                    <FlatList
-                    keyExtractor={this._keyExtractor}
-                    data={[{id:1,name: 'Title Text', code: 'item1',num:'12'},{id:2,name: 'Title Text3', code: 'item1',num:'12'}]}
-                    renderItem={({item, separators}) => ( <ClassListItem item ={item}/>  )}
-                    /> 
-                </View> */}
-                
             </View>
         )
     }

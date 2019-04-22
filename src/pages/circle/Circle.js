@@ -234,12 +234,14 @@ export default class Circle extends React.Component{
                         </View>
                         <Text>任务</Text>
                     </View>
-                    <View style={{flexDirection:'column',alignItems:'center'}}>
-                        <View style={styles.iconBtn}>
-                            <Icon name={'tongzhi'} size={15} color={'#8DBE4E'}></Icon>
+                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('AddNotice')}>
+                        <View style={{flexDirection:'column',alignItems:'center'}}>
+                                <View style={styles.iconBtn}>
+                                    <Icon name={'tongzhi'} size={15} color={'#8DBE4E'}></Icon>
+                                </View>
+                                <Text>通知</Text>
                         </View>
-                        <Text>通知</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={{flexDirection:'column',alignItems:'center'}}>
                         <View style={styles.iconBtn}>
                             <Icon name={'daka'} size={15} color={'#8DBE4E'}></Icon>

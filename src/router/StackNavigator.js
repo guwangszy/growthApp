@@ -12,6 +12,7 @@ import Regedit from '../pages/regediter/Regedit'
 import ClassAdd from '../pages/classes/Add'
 import ClassDetail from '../pages/classes/Detail'
 
+import AddNotice from '../pages/circle/Notice'
 
 function TopLevelNavigator(isLogin) {
     return createStackNavigator({
@@ -37,6 +38,10 @@ function TopLevelNavigator(isLogin) {
         },
         ClassDetail: {
             screen: ClassDetail,
+            navigationOptions:({navigation}) =>({header:null})
+        },
+        AddNotice: {
+            screen: AddNotice,
             navigationOptions:({navigation}) =>({header:null})
         }
     }, {

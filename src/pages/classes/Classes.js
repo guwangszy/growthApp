@@ -17,7 +17,7 @@ class ClassListItem extends React.Component{
     render(){
         return (
             <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:12}}>
-                <TouchableOpacity onPress={()=>{console.log(this.props.item.id);this.props.navigation.navigate('ClassDetail',{id:this.props.item.id})}}>
+                <TouchableOpacity onPress={()=>{this.props.navigation.navigate('ClassDetail',{id:this.props.item.id})}}>
                     <View style={{flexDirection:'column',justifyContent:'center',
                     backgroundColor:'#FEFEFE',height:70,width:width*0.95}}>
                         <View style={{height:100,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>

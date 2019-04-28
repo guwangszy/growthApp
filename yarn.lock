@@ -5376,6 +5376,11 @@ react-native-drawer-layout@1.3.2:
   version "0.1.0"
   resolved "git+https://github.com/yongqianvip/react-native-overlayer.git#eda1a0f35032c5cab591ccaaba5d18b0d47e258a"
 
+react-native-pickers@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-pickers/download/react-native-pickers-2.0.0.tgz#c18ee65ce148d52cadf7cbe0379ab07e7a945394"
+  integrity sha1-wY7mXOFI1Syt98vgN5qwfnqUU5Q=
+
 react-native-safe-area-view@0.11.0:
   version "0.11.0"
   resolved "http://registry.npm.taobao.org/react-native-safe-area-view/download/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"

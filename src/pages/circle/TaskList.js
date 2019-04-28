@@ -2,7 +2,7 @@
  * 班级页面
  */
 import React from 'react'
-import {View,Text,StyleSheet,FlatList,TouchableWithoutFeedback} from 'react-native'
+import {View,Text,StyleSheet,TouchableWithoutFeedback} from 'react-native'
 import TitleBar from '../../common/TitleBar'
 import Icon from '../../resource/icon/Iconfont'
 import {width} from '../../common/AdapterUtil'
@@ -16,19 +16,16 @@ class ClassListItem extends React.Component{
     }
     render(){
         return (
-            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:12}}>
-                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('ClassDetail',{id:this.props.item.id})}}>
+            <View style={{flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:12}}>
+                <Text style={{color:'#B6B6B6'}}>{this.props.item.time}</Text>
+                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{id:this.props.item.id})}}>
                     <View style={{flexDirection:'column',justifyContent:'center',
-                    backgroundColor:'#FEFEFE',height:70,width:width*0.95}}>
-                        <View style={{height:100,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>
+                    backgroundColor:'#FEFEFE',height:50,width:width}}>
+                        <View style={{height:50,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
-                                <Icon name={'banjizhuye'} size={40} color={'#4AB567'}></Icon>
+                            <View style={styles.triangle}><Text style={{color:'#fff'}}>打卡</Text></View>
                                 <View style={{flexDirection:'column',marginLeft:10}}>
-                                    <Text>{this.props.item.name}</Text>
-                                    <View style={{flexDirection:'row',marginTop:8}}>
-                                        <Text style={{color:'#A6A6A6'}}>班级号：{this.props.item.code}</Text>
-                                        <Text style={{color:'#A6A6A6',marginLeft:12}}>成员：{this.props.item.num}</Text>
-                                    </View>
+                                    <Text>{this.props.item.title}</Text>
                                 </View>
                             </View>
                             <Icon name={'xiangyou'} size={20} color={'#bfbfbf'}/>
@@ -39,13 +36,13 @@ class ClassListItem extends React.Component{
         )
     }
 }
-export default class Classes extends React.Component{
+export default class TaskList extends React.Component{
     _isRefreshing = false;
     _isFooter=false
     constructor(props){
         super(props)
         this.state={
-            title:'班级',
+            title:'任务列表',
             myself:[],
             page:1,
             pageSize:10
@@ -61,16 +58,16 @@ export default class Classes extends React.Component{
             page:page
         }
         _isRefreshing=true
-        api.post(Config.service.classList,params).then((ret)=>{
+        api.post(Config.service.tasklist,params).then((ret)=>{
             if (ret.errcode === 0) {
                 _isRefreshing=false
-                page = ret.data.myself.page
-                total = ret.data.myself.total
-                if(total/this.state.pageSize === page || !ret.data.myself.data){
+                page = ret.data.list.page
+                total = ret.data.list.total
+                if(total/this.state.pageSize === page || !ret.data){
                     this._isFooter=true
                 }
                 this.setState({
-                    myself:ret.data.myself.list,
+                    myself:ret.data.list,
                     page:page+1
                 })
             }
@@ -88,10 +85,8 @@ export default class Classes extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true} />
-                <Dashedbtn width={width*0.9} onPress={() => this.toAddClasses()} text={'新建班级'}/>
-                <View style={{marginTop:20}}>
-                    <Text style={{marginLeft:10}}>我创建的</Text>
+                <TitleBar title={this.state.title} navigation={this.props.navigation} />
+                <View>
                     <SimpleList
                         onRefresh={()=>this.onRefresh()}
                         refreshing={this._isRefreshing}
@@ -110,5 +105,13 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#F0F1F5',
+    },
+    triangle:{
+        width: 40,
+        height: 20,
+        backgroundColor:'#4AB567',
+        borderRadius:20,
+        alignItems:'center',
+        
     }
 })

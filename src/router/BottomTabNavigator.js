@@ -6,6 +6,7 @@ import Icon from '../resource/icon/Iconfont'
 import Growth from '../pages/growth/Growth'
 import Account from '../pages/account/Account'
 import Classes from '../pages/classes/Classes'
+import ClassDetail from '../pages/classes/Detail'
 import Circle from '../pages/circle/Circle'
 
 
@@ -21,13 +22,13 @@ export default BottomTabNavigator = createBottomTabNavigator  (
       navigationOptions: ({ navigation }) => ({})
     },
     '班级': { 
-      screen: Classes,
+      screen: ClassDetail,
       navigationOptions: ({ navigation }) => ({})
     },
     '我的': { 
       screen: Account ,
       navigationOptions: ({ navigation }) => ({})
-    }
+    },
   },
   {
     navigationOptions: ({ navigation }) => ({

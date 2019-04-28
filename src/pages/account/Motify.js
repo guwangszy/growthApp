@@ -9,7 +9,7 @@ import TitleBar from '../../common/TitleBar'
 import ActionSheet from 'react-native-actionsheet'
 import Config from '../../api/Config'
 import api from '../../api/index'
-import {width} from '../../common/AdapterUtil'
+import storage from '../../storage/index'
 import {SimpleBtn} from '../../common/form/Buttons'
 import Utils from '../../common/Utils';
 
@@ -17,16 +17,11 @@ export default class Identity extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      title:'注册',
+      title:'完善信息',
       actionSheetOptions:['男','女','取消'],
-      type:'1',
     }
   }
   componentWillMount(){
-    let data = this.props.navigation.state.params;
-    this.setState({
-      type:data.type
-    })
   }
   chooseActionSheet(index){
     if (index != (this.state.actionSheetOptions.length- 1)) {
@@ -44,46 +39,39 @@ export default class Identity extends React.Component{
       type: FieldType.String,
       label: "姓名",
       required: true,
-      placeholder: "请输入"
+      disabled: true,
+      placeholder:'请输入',
+      value: global.USERINFO.username
     },
     phone:{
       type: FieldType.Number,
       label: "手机号码",
       required: true,
       maxLength:12,
-      placeholder: "请输入"
-    },
-    password:{
-      type: FieldType.Password,
-      label: "密码",
-      required: true,
-      maxLength:6,
-      placeholder: "请输入"
-    },
-    repassword:{
-      type: FieldType.Password,
-      label: "确认密码",
-      required: true,
-      maxLength:6,
-      placeholder: "请输入"
+      placeholder:'请输入',
+      value: global.USERINFO.mobile+''
     },
     age:{
       type: FieldType.Number,
       label: "年龄",
       required: true,
       maxLength:3,
-      placeholder: "请输入"
+      placeholder:'请输入',
+      value: global.USERINFO.age+''
     },
     email:{
       type: FieldType.String,
       label: "邮箱",
-      placeholder: "请输入"
+      placeholder:'请输入',
+      value: global.USERINFO.email
     },
     sex:{
       type: FieldType.Picker,
       label: "性别",
       required: true,
       placeholder: "请选择",
+      value: global.USERINFO.sex,
+      text: global.USERINFO.sex===0?'男':'女',
       onClick: () => {
         this.ActionSheet.show()
       }
@@ -93,24 +81,21 @@ export default class Identity extends React.Component{
     var value = this.refs.form.getValue();
     var verify = this.refs.form.getVerify();
     if (verify) {
-      if(value.password != value.repassword){
-        Utils.showToast("密码输入不一致！")
-        return false;
-      }
       //type:0:新增 1：修改
       let params={
+        userId:global.USRID,
         username:value.username,
         mobile:value.phone,
-        password:value.password,
         age:value.age,
-        roleId:this.state.type,
-        email:this.state.email,
+        roleId:global.USERINFO.roleId,
+        email:value.email,
         sex:value.sex,
       }
-      console.log(params)
-      api.post(Config.service.regedit,params).then((ret) => {
+      api.post(Config.service.update,params).then((ret) => {
         if (ret.errcode === 0) {
-          Utils.showToast("注册成功！")
+          Utils.showToast("修改成功！")
+          storage.removeItem('userInfo');
+          storage.removeItem('usrId');
           this.props.navigation.navigate('Login');
         } else {
           Utils.showToast(ret.errmsg)

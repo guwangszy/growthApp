@@ -60,24 +60,22 @@ export default class Login extends React.Component{
       }
       //登录
       let params = {
-        usrName: this.state.accountName,
+        mobile: this.state.accountName,
         password: this.state.password,
         deviceId: global.deviceId
       }
       api.post(Config.service.login, params).then((ret) => {
-        if (ret.errcode === '0') {
+        if (ret.errcode === 0) {
           storage.setItem('userInfo', ret.data);
           storage.setItem('usrId', ret.data.userId);
           
           global.USERINFO = ret.data // 全局的用户id 
           global.USRID = ret.data.userId // 全局的用户id 
-          global.TYPE = ret.data.type // 全局的用户id 
+          global.TYPE = ret.data.roleId // 全局的用户id 
           Utils.showToast("登录成功！")
           this.props.navigation.navigate('班级圈');
-        }else if (ret.returnCode === '0') {
-          Utils.showToast(ret.errmsg)
         } else {
-          Utils.showToast("登录失败！")
+          Utils.showToast(ret.errmsg)
         }
       })
     }

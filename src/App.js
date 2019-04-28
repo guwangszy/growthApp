@@ -21,7 +21,7 @@ export default class App extends React.Component {
           global.USRID = ret.userId // 全局的用户id 
           global.USERINFO = ret // 全局的用户id 
           global.USRID = ret.userId // 全局的用户id 
-          global.TYPE = ret.type // 全局的用户id 
+          global.TYPE = ret.roleId // 全局的用户id 
           that.setState({
             isLogin:true
           })

@@ -48,6 +48,7 @@ export default class Growth extends React.Component{
             title:'成长册',
             data:[],
             start:0,
+            page:1,
             limit:10,
             total:0,
         }
@@ -57,8 +58,9 @@ export default class Growth extends React.Component{
     }
     initList(){
         let params={
+            roleId:global.USERINFO.roleId,
             userId:global.USRID,
-            start:this.state.start,
+            page:this.state.page,
             limit:this.state.limit
         }
         this._isload=true
@@ -69,7 +71,7 @@ export default class Growth extends React.Component{
                 this._isRefreshing=false
                 page = ret.data.page
                 total = ret.data.total?ret.data.total:0
-                if(total/this.state.pageSize === page || !ret.data.data){
+                if((this.state.limit*page)>=total || !ret.data.data){
                     this._isFooter=true
                 }
                 data = [...this.state.data, ...ret.data.list];

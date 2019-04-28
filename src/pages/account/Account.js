@@ -50,10 +50,10 @@ export default class Account extends React.Component{
     }
     logout(){
         api.post(Config.service.logout, {
-            usrId: global.USRID,
+            userid: global.USRID,
             deviceId: global.deviceId
         }).then((ret) => {
-            if (ret && ret.errcode === '0') {
+            if (ret && ret.errcode === 0) {
             storage.removeItem('userInfo');
             storage.removeItem('usrId');
             Router.navigate('Login',{});
@@ -74,7 +74,7 @@ export default class Account extends React.Component{
                             <View style={{flexDirection:"row",alignItems: "center"}}>
                                 <Text style={{fontSize:18,color:'#fff'}}>{global.USERINFO.username}</Text>
                                 <View style={{borderRadius:20,marginLeft: 20,width:50, backgroundColor:'red',alignItems: "center"}}>
-                                    <Text style={{color:'#fff'}}>{global.USERINFO.type==='1'?"教师":"学生"}</Text>
+                                    <Text style={{color:'#fff'}}>{global.USERINFO.roleId==='1'?"教师":"学生"}</Text>
                                 </View>  
                             </View>
                             <View style={{marginTop: 5}}><Text style={{color:'#fff'}}>{global.USERINFO.phone}</Text></View>
@@ -83,8 +83,8 @@ export default class Account extends React.Component{
                 </View>
                 <ScrollView>
                     <View>
-                        <Listitem showBorder={true} icon={'yonghu1'} text={'完善信息'} onPress={()=>{}}></Listitem>
-                        <Listitem showBorder={true} icon={'xiugaimima'} text={'修改密码'} onPress={()=>{}}></Listitem>
+                        <Listitem showBorder={true} icon={'yonghu1'} text={'完善信息'} onPress={()=>{this.props.navigation.navigate('Modify')}}></Listitem>
+                        <Listitem showBorder={true} icon={'xiugaimima'} text={'修改密码'} onPress={()=>{this.props.navigation.navigate('Password')}}></Listitem>
                     </View>
                     <View style={{marginTop:20}}>
                         <Listitem showBorder={true} icon={'banjizhuye'} text={'我的班级'} onPress={()=>{this.props.navigation.navigate('班级')}}></Listitem>

@@ -30,7 +30,7 @@ export default class TaskDetail extends React.Component{
                         <View style={{flexDirection:'column',justifyContent:'center',width:width*0.98,}}>
                             <Text style={{fontSize:18}}>标题</Text>
                             <Text style={{fontSize:14,color:'#B3B3B3'}}>作者 时间</Text>
-                            <Text style={{fontSize:16,textIndent:25}}>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
+                            <Text style={{fontSize:16}}>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
                         </View>
                         <View style={{flexDirection:'row',marginTop:10,marginBottom:10,width:width*0.98,justifyContent:'space-between'}}>
                             <Text style={{fontSize:14,color:'#B3B3B3'}}>阅读 78454</Text>

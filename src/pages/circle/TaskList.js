@@ -55,16 +55,22 @@ export default class TaskList extends React.Component{
     initList(page){
         let params={
             userId:global.USRID,
+            gradeId: global.USERINFO.gradeClassId,
             page:page
         }
         _isRefreshing=true
         api.post(Config.service.tasklist,params).then((ret)=>{
             if (ret.errcode === 0) {
                 _isRefreshing=false
-                page = ret.data.list.page
-                total = ret.data.list.total
-                if(total/this.state.pageSize === page || !ret.data){
+                page = ret.data.currPage
+                totalPage = ret.data.totalPage
+                if(page>=totalPage){
                     this._isFooter=true
+                }
+                if(page===1){
+                    data = ret.data.list;
+                }else{
+                    data = [...this.state.data, ...ret.data.list];
                 }
                 this.setState({
                     myself:ret.data.list,

@@ -39,15 +39,15 @@ class ListItem extends React.Component{
                             <View style={{flexDirection:'row',justifyContent:'space-between',marginTop: 10,alignItems:'center'}}>
                                 <Text style={{fontSize:10}}>{item.time}</Text>
                                 <View style={{flexDirection:'row'}}>
-                                    <TouchableOpacity activeOpacity={0.6} onPress={()=>this.toOperation(1,item.id,index)}>
+                                    {/* <TouchableOpacity activeOpacity={0.6} onPress={()=>this.toOperation(1,item.id,index)}>
                                     <View style={{flexDirection:'row',alignItems:'center',marginRight: 10}}>
                                         <Icon name={item.read?'yikan':'chakan'} size={20} color={'#8DBE4E'}></Icon>
                                         <Text style={{fontSize:10}}>已阅</Text>
                                     </View>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                     <TouchableOpacity activeOpacity={0.6} onPress={()=>this.toOperation(2,item.id,index)}>
                                     <View style={{flexDirection:'row',alignItems:'center',marginRight: 10}}>
-                                        <Icon name={item.dianzan?'yizan':'dianzan'} size={20} color={'#8DBE4E'}></Icon>
+                                        <Icon name={item.num>0?'yizan':'dianzan'} size={20} color={'#8DBE4E'}></Icon>
                                         <Text style={{fontSize:10}}>点赞</Text>
                                     </View>
                                     </TouchableOpacity>
@@ -59,17 +59,18 @@ class ListItem extends React.Component{
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{padding:5,flex:1,flexDirection:'row',justifyContent:'space-between',marginTop: 10,alignItems:'center',backgroundColor:'#E7E7E7'}}>
+                            {item.commentList.length>0?(<View style={{padding:5,flex:1,flexDirection:'row',justifyContent:'space-between',marginTop: 10,alignItems:'center',backgroundColor:'#E7E7E7'}}>
                                 <FlatList
-                                    data={item.comment}
+                                    data={item.commentList}
                                     keyExtractor={(item, index)=>`${item.id}-${index}`}
                                     renderItem={({item, separators}) => (
                                         <View style={{flex:1,flexDirection:'row',alignSelf:'flex-start',marginBottom:5,fontSize:12}}>
-                                            <Text style={{color:"#5FDA21"}}>{item.username}: <Text style={{color:"#000"}}>{item.msg}</Text></Text>
+                                            <Text style={{color:"#5FDA21"}}>{item.username}: <Text style={{color:"#000"}}>{item.commentContent}</Text></Text>
                                         </View>
                                     )}
                                 />
-                            </View>
+                            </View>):null}
+                            
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -91,9 +92,9 @@ export default class Circle extends React.Component{
             index:0,
             circleId:"",
             data:[],
+            page:1,
             start:0,
             limit:10,
-            total:0,
         }
     }
     componentWillMount(){
@@ -101,8 +102,9 @@ export default class Circle extends React.Component{
     }
     initList(){
         let params={
+            gradeId: global.USERINFO.gradeClassId,
             userId:global.USRID,
-            start:this.state.start,
+            page:this.state.page,
             limit:this.state.limit
         }
         this._isload=true
@@ -111,29 +113,26 @@ export default class Circle extends React.Component{
             this._isload=false
             if (ret.errcode === 0) {
                 this._isRefreshing=false
-                page = ret.data.page
-                total = ret.data.total?ret.data.total:0
-                if((this.state.limit*page)>=total || !ret.data.data){
+                page = ret.data.currPage
+                totalPage = ret.data.totalPage
+                if(page>=totalPage){
                     this._isFooter=true
                 }
                 data = [...this.state.data, ...ret.data.list];
                 this.setState({
                     data: data,
-                    page: page+1,
-                    total:total
+                    page: page+1
                 })
             }
         })
     }
     onRefresh(){
-        if(!this._isload){
-            this.setState({
-                data:[],
-                start:0,
-            }, () => {
-                this.initList()
-            })
-        }
+        this.setState({
+            data:[],
+            page:1,
+        }, () => {
+            this.initList()
+        })
     }
     onEndReached(){
         if(!this._isload){
@@ -164,12 +163,13 @@ export default class Circle extends React.Component{
         })
        }else if(type === 2){ // 点赞
         let params={
-            id:id,
+            issueId:id,
+            type:1,
             userId:global.USRID,
         }
         api.post(Config.service.dianzan,params).then((ret)=>{
             if(ret.errcode === 0){
-                _this.state.data[index].dianzan=true
+                _this.state.data[index].num=1
                 _this.setState({
                     circleId:'',
                     data:_this.state.data
@@ -183,20 +183,21 @@ export default class Circle extends React.Component{
         let _this= this
         if(this.state.reply){
             var params={
-                id:this.state.circleId,
+                issueId:this.state.circleId,
                 userId:global.USRID,
-                reply:this.state.reply
+                type:2,
+                commentContent:this.state.reply
             }
             api.post(Config.service.addReply,params).then((ret)=>{
                 if(ret.errcode === 0){
                    
                     let reply=[{
-                        "id": ret.data.id,
+                        "id": this.state.circleId,
                         "username": global.USERINFO.username,
-                        "msg": _this.state.reply
+                        "commentContent": _this.state.reply
                     }]
-                    let comment=_this.state.data[_this.state.index].comment
-                    _this.state.data[_this.state.index].comment=[...comment,...reply]
+                    let comment=_this.state.data[_this.state.index].commentList
+                    _this.state.data[_this.state.index].commentList=[...comment,...reply]
                     
                     _this.setState({
                         circleId:'',
@@ -230,14 +231,8 @@ export default class Circle extends React.Component{
             <View style={styles.container} >
                 <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true} />
                 <View style={styles.iconBtnBox}>
-                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('TaskList')}>
-                        <View style={{flexDirection:'column',alignItems:'center'}}>
-                            <View style={styles.iconBtn}>
-                                <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
-                            </View>
-                            <Text>任务</Text>
-                        </View>
-                    </TouchableOpacity>
+                {global.USERINFO.roleId==='1'?(
+                    <View>
                     <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('AddNotice',{type:1})}>
                         <View style={{flexDirection:'column',alignItems:'center'}}>
                                 <View style={styles.iconBtn}>
@@ -254,6 +249,18 @@ export default class Circle extends React.Component{
                             <Text>打卡</Text>
                         </View>
                     </TouchableOpacity>
+                    </View>
+                    ):(
+                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('TaskList')}>
+                        <View style={{flexDirection:'column',alignItems:'center'}}>
+                            <View style={styles.iconBtn}>
+                                <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
+                            </View>
+                            <Text>任务</Text>
+                        </View>
+                    </TouchableOpacity>
+                    )}
+                    
                 </View>
                 {this.state.replyShow?this._replyView():null}
                 <SimpleList 

@@ -88,6 +88,7 @@ export default class Account extends React.Component{
                     </View>
                     <View style={{marginTop:20}}>
                         <Listitem showBorder={true} icon={'banjizhuye'} text={'我的班级'} onPress={()=>{this.props.navigation.navigate('班级')}}></Listitem>
+                        <Listitem showBorder={true} icon={'chengchangzhi'} text={'知识库'} onPress={()=>{this.props.navigation.navigate('KnowledgeList')}}></Listitem>
                         <Listitem icon={'banben'} text={'版本信息'} subtext={'v. '+global.appVersion}></Listitem>
                     </View>
                     <SimpleBtn onPress={() => this.logout()} text={'退出'}/>

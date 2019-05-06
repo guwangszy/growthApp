@@ -25,7 +25,7 @@ export default class Detail extends React.Component{
     }
     componentWillUnmount() {
         this.subs.forEach(sub => sub.remove());
-      }
+    }
     init(){
         let _this =this 
         // let data = this.props.navigation.state.params;

@@ -10,10 +10,14 @@ var config = {
     classList:`/classes/list`,// 班级列表
     classDetail:`/app/appGrade/list`,// 班级详情
     growthList:`/app/growUp/list`,// 成长册列表.
-    circleList:`/circle/list`,// 班级圈
-    addReply:`/circle/addReply`,// 添加评论
-    dianzan:`/circle/dianzan`,//点赞
-    tasklist:`/circle/tasklist`,//点赞
+    growthAdd:`/app/growUp/save`,//新增成长册
+    growthFiles:`/app//growUp/fileList`,//新增成长册
+    circleList:`app/appAdvice/gradeCycleList`,// 班级圈
+    addReply:`/app/appAdvice/saveComment`,// 添加评论
+    dianzan:`/app/appAdvice/saveComment`,//点赞
+    tasklist:`/app/appAdvice/list`,//任务列表
+    filelist:`/app/appFile/list`,//文件列表
+    fileDetail:`/app/appFile/getFile`,//文件详情
   }
 
 };

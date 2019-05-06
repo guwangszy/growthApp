@@ -4,9 +4,9 @@ import storage from '../storage/index'
 import Utils from '../common/Utils'
 
 // let base = 'https://www.easy-mock.com/mock/5caca29b3040f52aa81fa9f4/growth'
- let base = 'http://192.168.190.1:8080/x_springboot/'
-// let base = 'http://guwangszy.vicp.cc:45081/x_springboot/'
-
+ // let base = 'http://172.18.247.62:8080/x_springboot/'
+let base = 'http://guwangszy.vicp.cc:45081/x_springboot/'
+global.base=base
 /**
  * API 请求
  */

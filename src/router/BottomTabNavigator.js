@@ -13,14 +13,15 @@ import Circle from '../pages/circle/Circle'
 //所有需要用到路由跳转的页面,需在此页面注册入路由
 export default BottomTabNavigator = createBottomTabNavigator  (
   { 
-    '班级圈': { 
-      screen: Circle,
-      navigationOptions: ({ navigation }) => ({})
-    },
     '成长册': { 
       screen: Growth,
       navigationOptions: ({ navigation }) => ({})
     },
+    '班级圈': { 
+      screen: Circle,
+      navigationOptions: ({ navigation }) => ({})
+    },
+    
     '班级': { 
       screen: ClassDetail,
       navigationOptions: ({ navigation }) => ({})

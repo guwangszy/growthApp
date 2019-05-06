@@ -22,8 +22,32 @@ import AddNotice from '../pages/circle/Notice'
 import TaskDetail from '../pages/circle/TaskDetail'
 import FinishTask from '../pages/circle/FinishTask'
 
+// 成长册
+import GrowthAdd from '../pages/growth/Add'
+import GrowthDetail from '../pages/growth/Detail'
+
+// 知识库
+import KnowledgeList from '../pages/knowledge/List'
+import KnowledgeDetail from '../pages/knowledge/Detail'
+
 function TopLevelNavigator(isLogin) {
     return createStackNavigator({
+        KnowledgeDetail: {
+            screen: KnowledgeDetail,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        KnowledgeList: {
+            screen: KnowledgeList,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        GrowthDetail: {
+            screen: GrowthDetail,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        GrowthAdd: {
+            screen: GrowthAdd,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
         Password: {
             screen: Password,
             navigationOptions: ({ navigation }) => ({header: null}),

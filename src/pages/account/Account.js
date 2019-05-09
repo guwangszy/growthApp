@@ -74,7 +74,7 @@ export default class Account extends React.Component{
                             <View style={{flexDirection:"row",alignItems: "center"}}>
                                 <Text style={{fontSize:18,color:'#fff'}}>{global.USERINFO.username}</Text>
                                 <View style={{borderRadius:20,marginLeft: 20,width:50, backgroundColor:'red',alignItems: "center"}}>
-                                    <Text style={{color:'#fff'}}>{global.USERINFO.roleId==='1'?"教师":"学生"}</Text>
+                                    <Text style={{color:'#fff'}}>{global.USERINFO.roleId===1?"教师":"学生"}</Text>
                                 </View>  
                             </View>
                             <View style={{marginTop: 5}}><Text style={{color:'#fff'}}>{global.USERINFO.phone}</Text></View>

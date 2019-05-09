@@ -30,12 +30,12 @@ class ListItem extends React.Component{
         return (
             <View style={[styles.container,{flexDirection:'row',justifyContent:'flex-start',marginBottom: 15}]}>
                 <Image  source={images.nv} style={{justifyContent: "center", height: 50, width: 50,marginLeft: 5}} resizeMode="contain"></Image>
-                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{id:this.props.item.id})}}>
+                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{item:this.props.item})}}>
                     <View style={{width:width*0.8,flexDirection:'column',marginTop: 20,marginLeft: 5}}>
                         <View style={{flexDirection:'row',justifyContent:'flex-start'}}><Text style={{fontSize:12}}>{item.classes}{item.username}</Text></View>
                         <View style={{borderRadius:10,borderWidth:1,borderColor:'#8DBE4E',backgroundColor:'#FBFBFB',padding: 10}}>
                             <Text style={{fontSize:18}}>{item.title}</Text>
-                            <Text style={{fontSize:16}}>{item.content}</Text>
+                            <Text style={{fontSize:16}}>{item.doneContent?item.doneContent:item.content}</Text>
                             <View style={{flexDirection:'row',justifyContent:'space-between',marginTop: 10,alignItems:'center'}}>
                                 <Text style={{fontSize:10}}>{item.time}</Text>
                                 <View style={{flexDirection:'row'}}>
@@ -98,7 +98,10 @@ export default class Circle extends React.Component{
         }
     }
     componentWillMount(){
-        this.initList()
+        this.subs = [this.props.navigation.addListener('didFocus', () => this.initList()),];
+    }
+    componentWillUnmount() {
+        this.subs.forEach(sub => sub.remove());
     }
     initList(){
         let params={
@@ -230,9 +233,8 @@ export default class Circle extends React.Component{
         return (
             <View style={styles.container} >
                 <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true} />
-                <View style={styles.iconBtnBox}>
-                {global.USERINFO.roleId==='1'?(
-                    <View>
+                {global.USERINFO.roleId===1?(
+                    <View style={styles.iconBtnBox}>
                     <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('AddNotice',{type:1})}>
                         <View style={{flexDirection:'column',alignItems:'center'}}>
                                 <View style={styles.iconBtn}>
@@ -251,17 +253,17 @@ export default class Circle extends React.Component{
                     </TouchableOpacity>
                     </View>
                     ):(
-                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('TaskList')}>
-                        <View style={{flexDirection:'column',alignItems:'center'}}>
-                            <View style={styles.iconBtn}>
-                                <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
+                    <View style={styles.iconBtnBox}>
+                        <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('TaskList')}>
+                            <View style={{flexDirection:'column',alignItems:'center'}}>
+                                <View style={styles.iconBtn}>
+                                    <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
+                                </View>
+                                <Text>任务</Text>
                             </View>
-                            <Text>任务</Text>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                     )}
-                    
-                </View>
                 {this.state.replyShow?this._replyView():null}
                 <SimpleList 
                     style={{marginBottom:120}}

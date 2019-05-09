@@ -7,8 +7,9 @@ import {SimpleBtn} from '../../common/form/Buttons'
 import CustomPicker from '../../common/CustomPicker'
 import TitleBar from '../../common/TitleBar'
 import {width} from '../../common/AdapterUtil'
-import {Form,FieldType} from '../../common/form/Form'
-
+import Utils from '../../common/Utils'
+import api from '../../api/index'
+import Config from '../../api/Config'
 export default class FinishTask extends React.Component{
     cycles=[];
     frequencys=[]
@@ -16,11 +17,29 @@ export default class FinishTask extends React.Component{
         super(props)
         this.state={
             title:'提交任务',
+            adviceId:'',
+            doneContent:''
         }
     }
-
+    componentWillMount(){
+        let adviceId = this.props.navigation.state.params.adviceId
+        this.setState({
+            adviceId:adviceId
+        })
+    }
     onSubmit(){
-        alert(1)
+        let params={
+            userId:global.USRID,
+            gradeId: global.USERINFO.gradeClassId,
+            adviceId:this.state.adviceId,
+            doneContent:this.state.doneContent
+        }
+        api.post(Config.service.finishtask,params).then((ret)=>{
+            if (ret.errcode === 0) {
+                Utils.showToast("提交成功！")
+                this.props.navigation.navigate('TaskList')
+            }
+        }) 
     }
     render(h) {
         return (
@@ -38,7 +57,7 @@ export default class FinishTask extends React.Component{
                         <TextInput style={styles.Input}
                             placeholder={"请输入内容"}
                             multiline={true} editable={true} maxLength={500}
-                            onChangeText={(value) => this.setState({ proposal: value })} />
+                            onChangeText={(value) => this.setState({ doneContent: value })} />
                     </View>
                 </View>
                 

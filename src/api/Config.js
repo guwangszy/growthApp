@@ -16,8 +16,10 @@ var config = {
     addReply:`/app/appAdvice/saveComment`,// 添加评论
     dianzan:`/app/appAdvice/saveComment`,//点赞
     tasklist:`/app/appAdvice/list`,//任务列表
+    finishtask:`/app/appAdvice/saveIssue`,//任务列表
     filelist:`/app/appFile/list`,//文件列表
     fileDetail:`/app/appFile/getFile`,//文件详情
+    addNotices:`/app/appAdvice/save`,//文件详情
   }
 
 };

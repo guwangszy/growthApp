@@ -39,8 +39,8 @@ export default class GrowthDetail extends React.Component{
                 <TitleBar title={this.state.title} navigation={this.props.navigation} />
                 <View style={{flexDirection:'column',justifyContent:'center'}}>
                     <View style={{backgroundColor:'#fff',width:width,justifyContent:'center',alignItems:'center'}}>
-                        <View style={{flexDirection:'column',justifyContent:'center',width:width*0.98,}}>
-                            <Text style={{fontSize:16}}>{this.state.accessory_name}</Text>
+                        <View style={{flexDirection:'column',marginTop:20,justifyContent:'center',width:width*0.98,}}>
+                            <Text style={{fontSize:20}}>{this.state.accessory_name}</Text>
                             <Text style={{fontSize:14,color:'#B3B3B3'}}>{this.state.username}   {this.state.growup_time}</Text>
                             <Text style={{fontSize:16}}>{this.state.conent}</Text>
                         </View>

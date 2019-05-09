@@ -8,25 +8,55 @@ import CustomPicker from '../../common/CustomPicker'
 import TitleBar from '../../common/TitleBar'
 import {width} from '../../common/AdapterUtil'
 import {Form,FieldType} from '../../common/form/Form'
-
+import api from '../../api/index'
+import Config from '../../api/Config'
+import Utils from '../../common/Utils'
 export default class Noticecle extends React.Component{
     cycles=[];
     frequencys=[]
     constructor(props){
+        title=''
+        content=''
         super(props)
         this.state={
-            title:'添加通知',
+            titleBar:'添加通知',
+            
         }
     }
 
     componentWillMount(){
         this.initCycle();
-        this.frequencys=[{text:'每天',value:0},{text:'周一',value:1},{text:'周二',value:2},{text:'周三',value:3},
-        {text:'周四',value:4},{text:'周五',value:5},{text:'周六',value:6},{text:'周七',value:7}]
+        _this =this 
+        this.frequencys=[{text:'每天',value:0},{text:'周一',value:2},{text:'周二',value:3},{text:'周三',value:4},
+        {text:'周四',value:5},{text:'周五',value:6},{text:'周六',value:7},{text:'周日',value:1}]
+        
+    }
+    componentDidMount(){
+        if(global.USERINFO.classId){
+            let params={
+                areaId:global.USERINFO.areaId,
+                schoolId:global.USERINFO.schoolId,
+                gradeId:global.USERINFO.gradeId,
+                classId:global.USERINFO.classId,
+            }
+            api.post(Config.service.classDetail,params).then((ret)=>{
+                if(ret.errcode === 0){ //  成功
+                    let options = {
+                        class:{
+                            value: global.USERINFO.gradeClassId,
+                            text: ret.data.area+ret.data.school+ret.data.grade+ret.data.className,
+                        }
+                    }
+                    this.refs.form.setValue(options)
+                }
+            })
+        }else{
+            Utils.showToast('请先添加班级')
+        }
     }
     initCycle(){
         let cycle=[];
-        for(let item =0;item <=100 ; item ++){
+        for(let item =1;item <=100 ; item ++){
             if(item%7==0){
                 cycle.push({text:item+'天',value:item})
             }
@@ -39,7 +69,7 @@ export default class Noticecle extends React.Component{
         }
         return true
     }
-    model ={
+    model={
         class:{
             type: FieldType.Picker,
             label: "发布班级",
@@ -70,12 +100,30 @@ export default class Noticecle extends React.Component{
         }
     }
     onSubmit(){
-        alert(1)
+        var value = this.refs.form.getValue();
+        var verify = this.refs.form.getVerify();
+        if (verify) {
+            api.post(Config.service.addNotices, {
+                title:  this.title,
+                content:  this.content,
+                frequency: value.frequency,
+                cycle: value.cycle,
+                gradeId: global.USERINFO.gradeClassId,
+                createUser: global.USERINFO.username,
+            }).then((ret) => {
+                if (ret.errcode === 0) {
+                    Utils.showToast("提交成功！")
+                    this.props.navigation.goBack();
+                } else {
+                    Utils.showToast("提交失败！")
+                }
+            })
+        }
     }
     render(h) {
         return (
             <View style={{flex:1}}>
-                <TitleBar title={this.state.title} navigation={this.props.navigation} 
+                <TitleBar title={this.state.titleBar} navigation={this.props.navigation} 
                     rightBtn={[{
                         right:'保存',
                         onPress:()=>{
@@ -88,13 +136,13 @@ export default class Noticecle extends React.Component{
                         <TextInput style={styles.title}
                             placeholder={"请输入标题"} 
                             editable={true} maxLength={50}
-                            onChangeText={(value) => this.setState({ proposal: value })} />
+                            onChangeText={(value) => this.title=value} />
                     </View>
                     <View style={[styles.InputBox,{ height: 200}]}>
                         <TextInput style={styles.Input}
                             placeholder={"请输入内容"}
                             multiline={true} editable={true} maxLength={500}
-                            onChangeText={(value) => this.setState({ proposal: value })} />
+                            onChangeText={(value) => this.content= value} />
                     </View>
                 </View>
                 <Form model={this.model} ref="form"/>
@@ -106,7 +154,7 @@ export default class Noticecle extends React.Component{
                     onPickerConfirm={(ret) => {
                         let options = {
                             frequency:{
-                                value: ret.vlaue,
+                                value: ret.value,
                                 text: ret.text,
                             }
                         }
@@ -121,7 +169,7 @@ export default class Noticecle extends React.Component{
                     onPickerConfirm={(ret) => {
                         let options = {
                             cycle:{
-                                value: ret.vlaue,
+                                value: ret.value,
                                 text: ret.text,
                             }
                         }

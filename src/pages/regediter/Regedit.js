@@ -104,7 +104,7 @@ export default class Identity extends React.Component{
         password:value.password,
         age:value.age,
         roleId:this.state.type,
-        email:this.state.email,
+        email:value.email,
         sex:value.sex,
       }
       console.log(params)

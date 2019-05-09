@@ -14,16 +14,17 @@ class ClassListItem extends React.Component{
     constructor(props){
         super(props)
     }
+    
     render(){
         return (
             <View style={{flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:12}}>
                 <Text style={{color:'#B6B6B6'}}>{this.props.item.time}</Text>
-                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{id:this.props.item.id})}}>
+                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{item:this.props.item})}}>
                     <View style={{flexDirection:'column',justifyContent:'center',
                     backgroundColor:'#FEFEFE',height:50,width:width}}>
                         <View style={{height:50,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <View style={styles.triangle}><Text style={{color:'#fff'}}>打卡</Text></View>
+                                <View style={styles.triangle}><Text style={{color:'#fff'}}>{this.props.item.frequency||this.props.item.frequency===0?'打卡':'通知'}</Text></View>
                                 <View style={{flexDirection:'column',marginLeft:10}}>
                                     <Text>{this.props.item.title}</Text>
                                 </View>
@@ -43,20 +44,24 @@ export default class TaskList extends React.Component{
         super(props)
         this.state={
             title:'任务列表',
-            myself:[],
+            data:[],
             page:1,
-            pageSize:10
+            limit:10
         }
     }
     componentWillMount(){
-        this.initList(1);//初始化列表数据
+        this.subs = [this.props.navigation.addListener('didFocus', () => this.initList()),];
+    }
+    componentWillUnmount() {
+        this.subs.forEach(sub => sub.remove());
     }
     // 初始化数据
-    initList(page){
+    initList(){
         let params={
             userId:global.USRID,
             gradeId: global.USERINFO.gradeClassId,
-            page:page
+            page:this.state.page,
+            limit:this.state.limit
         }
         _isRefreshing=true
         api.post(Config.service.tasklist,params).then((ret)=>{
@@ -73,20 +78,20 @@ export default class TaskList extends React.Component{
                     data = [...this.state.data, ...ret.data.list];
                 }
                 this.setState({
-                    myself:ret.data.list,
+                    data:data,
                     page:page+1
                 })
             }
         })
     }
-    /**
-     * 跳转添加班级
-     */
-    toAddClasses(){
-        this.props.navigation.navigate('ClassAdd', { callback: (ret) => this.initList() });
-    }
+    
     onRefresh(){
-        this.initList(1)
+        this.setState({
+            data:[],
+            page:1,
+        }, () => {
+            this.initList()
+        })
     }
     render(){
         return (
@@ -98,7 +103,7 @@ export default class TaskList extends React.Component{
                         refreshing={this._isRefreshing}
                         onEndReached={()=>{}}
                         isFooter={this._isFooter}
-                        data={this.state.myself}
+                        data={this.state.data}
                         renderItem={(item) => (<ClassListItem item ={item} navigation={this.props.navigation} />  )}
                     /> 
                 </View>

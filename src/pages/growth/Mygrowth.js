@@ -37,7 +37,7 @@ export default class TaskList extends React.Component{
                                 <View style={{flexDirection:'row',alignItems:'center'}}>
                                     <View style={{flexDirection:'row',marginLeft:10}}>
                                         <Icon name={'chengchangzhi'} size={20} color={'#4AB567'}/>
-                                        <Text style={{marginLeft:10}}>我的成长</Text>
+                                        <Text style={{marginLeft:10}}>成长记录</Text>
                                     </View>
                                 </View>
                                 <Icon name={'xiangyou'} size={20} color={'#bfbfbf'}/>

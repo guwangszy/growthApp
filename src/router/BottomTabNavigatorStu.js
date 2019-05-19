@@ -3,7 +3,7 @@ import {createBottomTabNavigator } from 'react-navigation'
 
 import Icon from '../resource/icon/Iconfont'
 
-import Growth from '../pages/growth/Growth'
+import Growth from '../pages/growth/Mygrowth'
 import Account from '../pages/account/Account'
 import Classes from '../pages/classes/Classes'
 import ClassDetail from '../pages/classes/Detail'
@@ -21,7 +21,7 @@ export default BottomTabNavigator = createBottomTabNavigator  (
       screen: Circle,
       navigationOptions: ({ navigation }) => ({})
     },
-    '学生成长': { 
+    '成长': { 
       screen: Growth,
       navigationOptions: ({ navigation }) => ({})
     },
@@ -41,9 +41,9 @@ export default BottomTabNavigator = createBottomTabNavigator  (
         let iconName;
         if (routeName === '消息') {
           iconName = `banjidongtai`;
-        }else if (routeName === '班级圈') {
+        } else if (routeName === '班级圈') {
           iconName = `banjidongtai`;
-        } else if (routeName === '学生成长') {
+        } else if (routeName === '成长') {
           iconName = `chengchang`;
         } else if (routeName === '班级') {
           iconName = `banjizhuye`;

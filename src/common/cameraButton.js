@@ -91,10 +91,15 @@ class CameraButton extends React.Component {
     //         Utils.showToast(err.toString())
     //     }
     // }
+    setImg(imgArr){
+        this.setState({
+            imgArr: imgArr,
+        })
+    }
     render() {
         const { photos } = this.props;
         let btnStyle = styles.hiddenCamera
-        if (this.state.imgArr.length < photos) {
+        if (photos ===1 || this.state.imgArr.length < photos) {
             btnStyle = styles.showCamera
         } else {
             btnStyle = styles.hiddenCamera
@@ -117,7 +122,6 @@ class CameraButton extends React.Component {
                                             style={styles.image}
                                             source={source}
                                             resizeMode={"contain"}
-
                                         />
                                     </View>
 
@@ -136,8 +140,6 @@ class CameraButton extends React.Component {
                         </TouchableNativeFeedback>
                     </View>
                 </View>
-
-
                 <ActionSheet
                     ref={o => this.ActionSheet = o}
                     options={['删除', '取消']}
@@ -166,19 +168,23 @@ class CameraButton extends React.Component {
                     uri = response.uri.replace('file://', '')
                 }
                 this.state.imgArr.push(uri)
+                if(this.props.photos===1){
+                    this.state.imgArr=[uri]
+                }
                 let file = response.data;
-                console.log(response)
                 this.setState({
                     loading: true
                 });
-                console.log(this.state.imgArr)
                 let files = this.state.files
+                if(this.props.photos===1){
+                    files=[]
+                }
                 files.push({
                     fileCode: file,
                     fileName: response.fileName
                 })
                 this.setState({
-                    file: files
+                    files: files
                 })
             }
         });

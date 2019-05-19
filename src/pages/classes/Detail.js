@@ -2,9 +2,8 @@
  * 班级详情
  */
 import React from 'react';
-                            <Image source={images.nv} style={{justifyContent: "center", height: 100, width: 100}} resizeMode="contain" />
-import {View,ScrollView,StyleSheet,FlatList,Text,Image} from 'react-native';
-import {SimpleDetail, DoubleRowDetail, TitleDetail, ShortDetail, BtnBoxDetail} from '../../common/form/Detail'
+import {View,ScrollView,StyleSheet,FlatList,Text,Image,TouchableOpacity} from 'react-native';
+import {SimpleDetail, TitleDetail, ShortDetail, BtnBoxDetail} from '../../common/form/Detail'
 import {width} from '../../common/AdapterUtil'
 import TitleBar from '../../common/TitleBar'
 import images from '../../common/image'
@@ -67,13 +66,15 @@ export default class Detail extends React.Component{
                     data={this.state.data.students}
                     keyExtractor={(item, index)=>`${item.id}-${index}`}
                     renderItem={({item, separators}) => (
-                        <View style={{flex:1,flexDirection:'row',justifyContent:"space-between",alignItems:'center',marginBottom:2,backgroundColor:"#fff",paddingRight:10}}>
-                            <View style={{paddingLeft:10,flexDirection:'row',justifyContent:"center",alignItems:'center',height: 50,}}>
-                                <Image source={images.nan} style={{height: 40, width: 40}} resizeMode="contain" />
-                                <Text style={{paddingLeft:10,color:"#5FDA21"}}>{item.username}</Text>
+                        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('UserDetail',{id:item.user_id})}}>
+                            <View style={{flex:1,flexDirection:'row',justifyContent:"space-between",alignItems:'center',marginBottom:2,backgroundColor:"#fff",paddingRight:10}}>
+                                <View style={{paddingLeft:10,flexDirection:'row',justifyContent:"center",alignItems:'center',height: 50,}}>
+                                    <Image source={images.nan} style={{height: 40, width: 40}} resizeMode="contain" />
+                                    <Text style={{paddingLeft:10,color:"#5FDA21"}}>{item.username}</Text>
+                                </View>
+                                <Text >{item.mobile}</Text>
                             </View>
-                            <Text >{item.mobile}</Text>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </ScrollView>

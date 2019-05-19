@@ -19,17 +19,18 @@ class ClassListItem extends React.Component{
         return (
             <View style={{flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:12}}>
                 <Text style={{color:'#B6B6B6'}}>{this.props.item.time}</Text>
-                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('TaskDetail',{item:this.props.item})}}>
+                <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('HomeworkView',{item:this.props.item})}}>
                     <View style={{flexDirection:'column',justifyContent:'center',
                     backgroundColor:'#FEFEFE',height:50,width:width}}>
                         <View style={{height:50,flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginLeft:10}}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
-                                <View style={styles.triangle}><Text style={{color:'#fff'}}>{this.props.item.frequency||this.props.item.frequency===0?'打卡':'通知'}</Text></View>
-                                <View style={{flexDirection:'column',marginLeft:10}}>
-                                    <Text>{this.props.item.title}</Text>
+                                <View style={styles.triangle}><Text style={{color:'#fff'}}>作业</Text></View>
+                                <View style={{flexDirection:'row',marginLeft:10}}>
+                                    <Text><Text style={{fontSize:18,color:'#000'}}>{this.props.item.username}</Text> 提交了作业：{this.props.item.done_content.substring(0,10)}...</Text>
                                 </View>
                             </View>
                             <Icon name={'xiangyou'} size={20} color={'#bfbfbf'}/>
+                            
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -43,30 +44,34 @@ export default class TaskList extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            title:'列表',
+            title:'作业列表',
             data:[],
             page:1,
             limit:10
         }
     }
     componentWillMount(){
-        this.subs = [this.props.navigation.addListener('didFocus', () => this.initList()),];
+        this.subs = [this.props.navigation.addListener('didFocus', () => this.setState({
+            data:[],
+            page:1,
+        }, () => {
+            this.initList()
+        }))];
     }
     componentWillUnmount() {
         this.subs.forEach(sub => sub.remove());
     }
     // 初始化数据
     initList(){
-        let data = this.props.navigation.state.params;
         let params={
+            roleId:global.USERINFO.roleId,
             userId:global.USRID,
             gradeId: global.USERINFO.gradeClassId,
-            type:data.type,
             page:this.state.page,
             limit:this.state.limit
         }
         _isRefreshing=true
-        api.post(Config.service.tasklist,params).then((ret)=>{
+        api.post(Config.service.workList,params).then((ret)=>{
             if (ret.errcode === 0) {
                 _isRefreshing=false
                 page = ret.data.currPage
@@ -98,7 +103,14 @@ export default class TaskList extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                <TitleBar title={(this.props.navigation.state.params.type===1?'通知':'打卡')+this.state.title} navigation={this.props.navigation} />
+                <TitleBar title={this.state.title} navigation={this.props.navigation}
+                rightBtn={[{
+                    right:'提交作业',
+                    onPress:()=>{
+                        this.props.navigation.navigate('HomeworkAdd',{callback: (ret) => this.onRefresh() })
+                    }
+                }]}
+                />
                 <View>
                     <SimpleList
                         onRefresh={()=>this.onRefresh()}

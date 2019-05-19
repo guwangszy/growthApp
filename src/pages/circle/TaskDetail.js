@@ -11,7 +11,7 @@ export default class TaskDetail extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            title:'详情',
+            titles:'详情',
             id:'',
             username:'',
             title:'',
@@ -36,7 +36,7 @@ export default class TaskDetail extends React.Component{
     render(){
         return (
             <View style={[styles.container]}>
-                {this.state.istask?(<TitleBar title={this.state.title} navigation={this.props.navigation}
+                {this.state.istask?(<TitleBar title={this.state.titles} navigation={this.props.navigation}
                  rightBtn={[{
                     right:'完成任务',
                     onPress:()=>{

@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 import { createStackNavigator } from 'react-navigation'
 import Utils from '../common/Utils'
 import BottomTabNavigator from './BottomTabNavigator'
+import BottomTabNavigatorStu from './BottomTabNavigatorStu'
 import Login from '../pages/Login'
 
 // 注册
@@ -15,6 +16,7 @@ import Modify from '../pages/account/Motify'
 // 班级
 import ClassAdd from '../pages/classes/Add'
 import ClassDetail from '../pages/classes/Detail'
+import UserDetail from '../pages/classes/UserDetail'
 
 // 班级圈
 import TaskList from '../pages/circle/TaskList'
@@ -25,13 +27,51 @@ import FinishTask from '../pages/circle/FinishTask'
 // 成长册
 import GrowthAdd from '../pages/growth/Add'
 import GrowthDetail from '../pages/growth/Detail'
+import Growth from '../pages/growth/Growth'
 
 // 知识库
 import KnowledgeList from '../pages/knowledge/List'
 import KnowledgeDetail from '../pages/knowledge/Detail'
 
+// 家庭作业
+import  HomeworkList from '../pages/homework/List'
+import HomeworkEdit from '../pages/homework/Edit'
+import HomeworkView from '../pages/homework/View'
+import HomeworkAdd from '../pages/homework/Add'
+
+// 新闻
+import NewView from '../pages/new/View'
+
 function TopLevelNavigator(isLogin) {
     return createStackNavigator({
+        Growth: {
+            screen: Growth,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        NewView: {
+            screen: NewView,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        HomeworkAdd: {
+            screen: HomeworkAdd,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        HomeworkView: {
+            screen: HomeworkView,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        HomeworkEdit: {
+            screen: HomeworkEdit,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        HomeworkList: {
+            screen: HomeworkList,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        UserDetail: {
+            screen: UserDetail,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
         KnowledgeDetail: {
             screen: KnowledgeDetail,
             navigationOptions: ({ navigation }) => ({header: null}),
@@ -58,6 +98,10 @@ function TopLevelNavigator(isLogin) {
         },
         Home: {//首页
             screen: BottomTabNavigator,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
+        HomeStu: {//首页
+            screen: BottomTabNavigatorStu,
             navigationOptions: ({ navigation }) => ({header: null}),
         },
         Login: {
@@ -97,7 +141,7 @@ function TopLevelNavigator(isLogin) {
             navigationOptions:({navigation}) =>({header:null})
         }
     }, {
-            initialRouteName: isLogin ? 'Home' : 'Login',//系统默认进入的第一个页面
+            initialRouteName: isLogin ? global.TYPE===1?'Home':'HomeStu' : 'Login',//系统默认进入的第一个页面
             headerMode: 'screen',
             headerTransparent: true,
             headerBackground: '#5691EF',

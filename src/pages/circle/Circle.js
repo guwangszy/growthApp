@@ -217,6 +217,21 @@ export default class Circle extends React.Component{
             })
         }
     }
+    onPress(type){// 1 通知 2 打卡 3 作业
+        if( global.USERINFO.roleId===1){ //1?"教师":"学生"
+            if(type===3){
+                this.props.navigation.navigate('HomeworkList')
+            }else{
+                this.props.navigation.navigate('AddNotice',{type:type})
+            }
+        }else{
+            if(type===3){
+                this.props.navigation.navigate('HomeworkList')
+            }else{
+                this.props.navigation.navigate('TaskList',{type:type})
+            }
+        }
+    }
     _replyView(){
         return (
             <View style={styles.replyBox}>
@@ -233,9 +248,9 @@ export default class Circle extends React.Component{
         return (
             <View style={styles.container} >
                 <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true} />
-                {global.USERINFO.roleId===1?(
+                
                     <View style={styles.iconBtnBox}>
-                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('AddNotice',{type:1})}>
+                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.onPress(1)}>
                         <View style={{flexDirection:'column',alignItems:'center'}}>
                                 <View style={styles.iconBtn}>
                                     <Icon name={'tongzhi'} size={15} color={'#8DBE4E'}></Icon>
@@ -243,7 +258,7 @@ export default class Circle extends React.Component{
                                 <Text>通知</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('AddNotice',{type:2})}>
+                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.onPress(2)}>
                         <View style={{flexDirection:'column',alignItems:'center'}}>
                             <View style={styles.iconBtn}>
                                 <Icon name={'daka'} size={15} color={'#8DBE4E'}></Icon>
@@ -251,19 +266,15 @@ export default class Circle extends React.Component{
                             <Text>打卡</Text>
                         </View>
                     </TouchableOpacity>
-                    </View>
-                    ):(
-                    <View style={styles.iconBtnBox}>
-                        <TouchableOpacity activeOpacity={0.6} onPress={() =>this.props.navigation.navigate('TaskList')}>
-                            <View style={{flexDirection:'column',alignItems:'center'}}>
-                                <View style={styles.iconBtn}>
-                                    <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
-                                </View>
-                                <Text>任务</Text>
+                    <TouchableOpacity activeOpacity={0.6} onPress={() =>this.onPress(3)}>
+                        <View style={{flexDirection:'column',alignItems:'center'}}>
+                            <View style={styles.iconBtn}>
+                                <Icon name={'banjitongzhi'} size={20} color={'#8DBE4E'}></Icon>
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                    )}
+                            <Text>作业</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 {this.state.replyShow?this._replyView():null}
                 <SimpleList 
                     style={{marginBottom:120}}

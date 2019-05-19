@@ -1,5 +1,5 @@
 /**
- * 知识库详情
+ * 消息详情
  */
 import React from 'react'
 import {View,Text,Image,StyleSheet,FlatList,TouchableOpacity,TextInput,document} from 'react-native'
@@ -14,24 +14,14 @@ export default class GrowthDetail extends React.Component{
         super(props)
         this.state={
             title:'详情',
-            conent:''
+            item:''
         }
     }
     componentWillMount(){
         let item=this.props.navigation.state.params.item
-        api.post(Config.service.fileDetail, {
-            accessoryAddress:item.accessory_name
-        }).then((ret) => {
-            if (ret.errcode === 0) {
-                this.setState({
-                    conent:ret.data.content,
-                    accessory_name:item.accessory_name,
-                    username:item.create_user,
-                    growup_time:item.create_time
-                })
-            }
+        this.setState({
+            item:item
         })
-        
     }
     render(){
         return (
@@ -39,10 +29,11 @@ export default class GrowthDetail extends React.Component{
                 <TitleBar title={this.state.title} navigation={this.props.navigation} />
                 <View style={{flexDirection:'column',justifyContent:'center'}}>
                     <View style={{backgroundColor:'#fff',width:width,justifyContent:'center',alignItems:'center'}}>
-                        <View style={{flexDirection:'column',marginTop:20,justifyContent:'center',width:width*0.98,}}>
-                            <Text style={{fontSize:20}}>{this.state.accessory_name}</Text>
-                            <Text style={{fontSize:14,color:'#B3B3B3'}}>{this.state.username}   {this.state.growup_time}</Text>
-                            <Text style={{fontSize:16}}>{this.state.conent}</Text>
+                        <View style={{flexDirection:'column',padding:10,justifyContent:'center',width:width*0.98,}}>
+                            <Text style={{fontSize:20}}>{this.state.item.headline}</Text>
+                            <Text style={{fontSize:14,color:'#B3B3B3'}}>{this.state.item.username}   {this.state.item.create_time}</Text>
+                            <Image source={{uri:global.base+'image/'+this.state.item.accessory_name}} style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height: 250, width:width*0.95}} resizeMode="cover"></Image>
+                            <Text style={{fontSize:16}}>{this.state.item.content}</Text>
                         </View>
                     </View>
                 </View>

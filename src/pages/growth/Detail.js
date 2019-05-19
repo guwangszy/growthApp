@@ -54,8 +54,8 @@ export default class GrowthDetail extends React.Component{
                             data={this.state.files}
                             keyExtractor={(item, index)=>`${item.id}-${index}`}
                             renderItem={({item, separators}) => (
-                                <View style={{alignItems:'center'}}>
-                                    <Image source={{uri:global.base+'image/'+item.accessory_name}} style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height: 250, width:width}} resizeMode="contain"></Image>
+                                <View style={{alignItems:'center',marginBottom:5 ,padding:10,backgroundColor:'#F0F1F5'}}>
+                                    <Image source={{uri:global.base+'image/'+item.accessory_name}} style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height: 250, width:width*0.95}}></Image>
                                 </View>
                             )}
                         />

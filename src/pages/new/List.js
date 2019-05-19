@@ -1,5 +1,5 @@
 /**
- * 成长册
+ * 消息列表
  */
 import React from 'react';
 import {View,Text,FlatList,Image, TouchableOpacity,StyleSheet,BackHandler} from "react-native";
@@ -10,7 +10,7 @@ import {width} from '../../common/AdapterUtil'
 import api from '../../api/index'
 import Config from '../../api/Config'
 
-class Groethitem extends React.Component{
+class Items extends React.Component{
     constructor(props){
         super(props)
     }
@@ -18,22 +18,15 @@ class Groethitem extends React.Component{
         const {item} = this.props;
         return (
             <View style={{backgroundColor: '#F5F5F5'}}>
-                <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',margin: 5}}>
-                    <Image source={images.nv} style={{justifyContent: "center", height: 50, width: 50}} resizeMode="contain"></Image>
-                    <View style={{flexDirection:'column',marginLeft: 5}}>
-                        <Text style={styles.font12}>{item.username}</Text>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={styles.font12}>{item.growup_time}</Text>
-                            <Text style={[styles.font12,{color:'#A6A6A6',marginLeft: 5}]}>{item.classes}</Text>
+                <View style={{marginBottom:5 ,padding:10,backgroundColor:'#DCDCDC'}}>
+                    <TouchableOpacity activeOpacity={0.6} onPress={()=>{this.props.navigation.navigate('NewView',{item:item })}}>
+                        <View style={{alignItems:'flex-start'}}>
+                            <Image source={{uri:global.base+'image/'+item.accessory_name}} style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height: 250, width:width*0.95}} resizeMode="cover"></Image>
+                            <View style={{position:"absolute",justifyContent:'center',bottom:0,backgroundColor:'rgba(0,0,0,0.5)',height:30,width:width*0.95}}>
+                                <Text style={{left:10,color:'#fff'}}>{item.headline}</Text>
+                            </View>
                         </View>
-                    </View>
-                </View>
-                <View style={{marginBottom:10}}>
-                <TouchableOpacity activeOpacity={0.6} onPress={()=>{this.props.navigation.navigate('GrowthDetail',{item:item })}}>
-                    <View style={{alignItems:'center'}}>
-                        <Image source={{uri:global.base+'image/'+item.accessory_name}} style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height: 250, width:width*0.95}}></Image>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -47,7 +40,7 @@ export default class Growth extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            title:'成长册',
+            title:'消息列表',
             data:[],
             page:1,
             start:0,
@@ -71,7 +64,7 @@ export default class Growth extends React.Component{
         this._isload=true
         this._isRefreshing=true
         that=this
-        api.post(Config.service.growthList,params).then((ret)=>{
+        api.post(Config.service.newlist,params).then((ret)=>{
             that._isload=false
             if (ret.errcode === 0) {
                 this._isRefreshing=false
@@ -80,11 +73,7 @@ export default class Growth extends React.Component{
                 if(page>=totalPage){
                     this._isFooter=true
                 }
-                if(page===1){
-                    data = ret.data.list;
-                }else{
-                    data = [...this.state.data, ...ret.data.list];
-                }
+                data = [...this.state.data, ...ret.data.list];
                 this.setState({
                     data: data,
                     page: page+1
@@ -96,6 +85,7 @@ export default class Growth extends React.Component{
         this.setState({
             data:[],
             page:1,
+            start:0,
         }, () => {
             this.initList()
         })
@@ -115,33 +105,14 @@ export default class Growth extends React.Component{
     render(){
         return (
           <View style={styles.container}>
-          {global.USERINFO.roleId===1?(
-              <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true}
-                rightBtn={[{
-                    right:'新增',
-                    onPress:()=>{
-                        this.props.navigation.navigate('GrowthAdd',{callback: (ret) => this.onRefresh() })
-                    }
-                }]}
-            />
-          ):(
-            <TitleBar title={this.state.title} navigation={this.props.navigation} 
-                rightBtn={[{
-                    right:'新增',
-                    onPress:()=>{
-                        this.props.navigation.navigate('GrowthAdd',{callback: (ret) => this.onRefresh() })
-                    }
-                }]}
-            />
-          )}
-            
+            <TitleBar title={this.state.title} navigation={this.props.navigation} hideLeftArrow={true}/>
             <SimpleList 
                 onRefresh={()=>this.onRefresh()}
                 refreshing={this._isRefreshing}
                 onEndReached={()=>this.onEndReached()}
                 isFooter={this._isFooter}
                 data={this.state.data}
-                renderItem={(item) => ( <Groethitem item={item} navigation={this.props.navigation}></Groethitem> )}
+                renderItem={(item) => ( <Items item={item} navigation={this.props.navigation}></Items> )}
             />
           </View>
         )

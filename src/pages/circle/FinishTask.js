@@ -4,7 +4,7 @@
 import React from 'react'
 import {View,Text,Image,StyleSheet,FlatList,TouchableOpacity,TextInput,document} from 'react-native'
 import {SimpleBtn} from '../../common/form/Buttons'
-import CustomPicker from '../../common/CustomPicker'
+import CameraRecordScreen from '../../common/CameraRecordScreen'
 import TitleBar from '../../common/TitleBar'
 import {width} from '../../common/AdapterUtil'
 import Utils from '../../common/Utils'
@@ -41,6 +41,7 @@ export default class FinishTask extends React.Component{
             }
         }) 
     }
+   
     render(h) {
         return (
             <View style={{flex:1}}>
@@ -58,6 +59,7 @@ export default class FinishTask extends React.Component{
                             placeholder={"请输入内容"}
                             multiline={true} editable={true} maxLength={500}
                             onChangeText={(value) => this.setState({ doneContent: value })} />
+                            <CameraRecordScreen />
                     </View>
                 </View>
                 

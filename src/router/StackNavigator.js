@@ -23,6 +23,7 @@ import TaskList from '../pages/circle/TaskList'
 import AddNotice from '../pages/circle/Notice'
 import TaskDetail from '../pages/circle/TaskDetail'
 import FinishTask from '../pages/circle/FinishTask'
+import CameraRecordScreen from '../pages/circle/CameraRecordScreen'
 
 // 成长册
 import GrowthAdd from '../pages/growth/Add'
@@ -44,6 +45,10 @@ import NewView from '../pages/new/View'
 
 function TopLevelNavigator(isLogin) {
     return createStackNavigator({
+        CameraRecordScreen: {
+            screen: CameraRecordScreen,
+            navigationOptions: ({ navigation }) => ({header: null}),
+        },
         Growth: {
             screen: Growth,
             navigationOptions: ({ navigation }) => ({header: null}),

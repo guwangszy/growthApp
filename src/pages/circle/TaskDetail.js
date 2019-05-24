@@ -40,7 +40,8 @@ export default class TaskDetail extends React.Component{
                  rightBtn={[{
                     right:'完成任务',
                     onPress:()=>{
-                        this.props.navigation.navigate('FinishTask',{adviceId:this.state.adviceId})
+                        // this.props.navigation.navigate('FinishTask',{adviceId:this.state.adviceId})
+                        this.props.navigation.navigate('CameraRecordScreen',{adviceId:this.state.adviceId})
                     }
                 }]}
                 />):(<TitleBar title={this.state.title} navigation={this.props.navigation} />)}

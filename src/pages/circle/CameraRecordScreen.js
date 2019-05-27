@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-
+import Icon from '../../resource/icon/Iconfont'
 
 class cameraRecordScreen extends Component {
     constructor(props){
@@ -63,15 +63,25 @@ class cameraRecordScreen extends Component {
     recordBtn(camera){
         if (this.state.isRecording===false){
             return(
-                <TouchableOpacity onPress={() => this.takeRecord(camera)} style={styles.capture}>
-                    <Text style={{ fontSize: 14 }}> 摄像 </Text>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row',}}>
+                    <TouchableOpacity onPress={() => this.toBack()} style={{flex: 0, alignSelf: 'center', margin: 20,}}>
+                        <Icon name="tobottom" color="#FFF" size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.takeRecord(camera)} style={styles.capture}>
+                        <Text style={{ fontSize: 14 }}> 摄像 </Text>
+                    </TouchableOpacity>
+                </View>
             )
         } else {
             return (
-                <TouchableOpacity onPress={() => this.stopRecord(camera)} style={styles.capture}>
-                    <Text style={{ fontSize: 14 }}> 停止 </Text>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row',}}>
+                    <TouchableOpacity onPress={() => this.toBack()} style={{flex: 0, alignSelf: 'center', margin: 20,}}>
+                        <Icon name="tobottom" color="#FFF" size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.stopRecord(camera)} style={styles.capture}>
+                        <Text style={{ fontSize: 14 }}> 停止 </Text>
+                    </TouchableOpacity>
+                </View>
             )
         }
     }
@@ -80,9 +90,15 @@ class cameraRecordScreen extends Component {
         this.setState({isRecording:true});
         const options = { quality:RNCamera.Constants.VideoQuality["480p"],maxFileSize:(100*1024*1024) };
         const data = await camera.recordAsync(options);
-        console.log(data);
-        this.props.navigation.goBack();
+        if(!this.state.isRecording){
+            this.props.navigation.state.params.callback(data.uri)
+            this.props.navigation.goBack();
+        }
     };
+    toBack(){
+        this.props.navigation.state.params.callback()
+        this.props.navigation.goBack();
+    }
     //停止录像
     stopRecord(camera){
         this.setState({isRecording:false});

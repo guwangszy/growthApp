@@ -7,9 +7,11 @@ import {
     View,
     PermissionsAndroid
 } from 'react-native'
+import RNFS from 'react-native-fs';
 import ActionSheet from 'react-native-actionsheet'
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Router from '../router/Index';
 
 const options = {
     title: '',
@@ -97,7 +99,7 @@ class CameraButton extends React.Component {
         })
     }
     render() {
-        const { photos } = this.props;
+        const { photos,video } = this.props;
         let btnStyle = styles.hiddenCamera
         if (photos ===1 || this.state.imgArr.length < photos) {
             btnStyle = styles.showCamera
@@ -132,7 +134,14 @@ class CameraButton extends React.Component {
                     }
                     <View style={[{ width: '25%' }, btnStyle]}>
                         <TouchableNativeFeedback
-                            onPress={this.showImagePicker.bind(this)}
+                            onPress={()=>{
+                                console.log('----------',(video&&video===true))
+                                if(video&&video===true){
+                                    this.VideoActionSheet.show();
+                                }else{
+                                    this.showImagePicker()
+                                }
+                            }}
                             >
                             <View style={[styles.cameraBtn]}>
                                 <Icon name="ios-add" color="#aaa" size={50} />
@@ -141,15 +150,61 @@ class CameraButton extends React.Component {
                     </View>
                 </View>
                 <ActionSheet
+                    ref={o => this.VideoActionSheet = o}
+                    options={['图片','视频', '取消']}
+                    destructiveButtonIndex={2}
+                    cancelButtonIndex={2}
+                    onPress={(index) => { 
+                        console.log(index)
+                        if(index === 0){ // 图片
+                            this.showImagePicker();
+                        }else if(index === 1){// 视频
+                            Router.navigate('CameraRecordScreen',{callback:(u)=>this.getMp4(u)});
+                        }
+                    }}
+                />
+                {/* <ActionSheet
                     ref={o => this.ActionSheet = o}
                     options={['删除', '取消']}
                     destructiveButtonIndex={0}
                     cancelButtonIndex={1}
                     onPress={(index) => { this.deleteFile(index) }}
-                />
+                /> */}
 
             </View>
         )
+    }
+
+    getMp4(uri){
+        if(uri){
+            //"file:///data/data/com.growthapp/cache/Camera/1f96bb7f-d89f-401a-8d70-219640b3c121.mp4"
+            this.state.imgArr.push(uri)
+            if(this.props.photos===1){
+                this.state.imgArr=[uri]
+            }
+            let files = this.state.files
+            if(this.props.photos===1){
+                files=[]
+            }
+            let fileName =uri.substring(uri.lastIndexOf("/")+1);
+            console.log(fileName,uri)
+            RNFS.readFile(uri, 'base64')
+                .then((content) => {
+                    // content 为base64数据
+                    console.log("content",content)
+                    files.push({
+                        fileCode: content,
+                        fileName: fileName
+                    })
+                    this.setState({
+                        files: files
+                    })
+                })
+                .catch((err) => {
+                    console.log("reading error: " + err);
+                });
+        }
+        
     }
     showActionSheet = () => {
         this.ActionSheet.show()
@@ -183,6 +238,7 @@ class CameraButton extends React.Component {
                     fileCode: file,
                     fileName: response.fileName
                 })
+                console.log(files)
                 this.setState({
                     files: files
                 })

@@ -100,11 +100,17 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     defaultConfig {
         applicationId "com.growthapp"
         missingDimensionStrategy 'react-native-camera', 'general'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         ndk {
@@ -152,12 +158,15 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-video')
+    implementation project(':react-native-fs')
     implementation project(':react-native-camera')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-svg')
     implementation project(':react-native-device-info')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.google.guava:guava:23.3-android'
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.android.gms:play-services-gcm:16.1.0'

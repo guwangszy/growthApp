@@ -1686,6 +1686,11 @@ balanced-match@^1.0.0:
   resolved "http://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+  integrity sha1-eAqZyE59YAJgNhURxId2E78k9rs=
+
 base64-js@1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/base64-js/download/base64-js-1.1.2.tgz#d6400cac1c4c660976d90d07a04351d89395f5e8"
@@ -3998,6 +4003,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keymirror@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+  integrity sha1-kYiJ6hP40KQufFVyUO7nE63JXDU=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -4133,9 +4143,9 @@ lodash.throttle@^4.1.1:
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1:
-  version "4.17.11"
-  resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
   version "1.4.0"
@@ -5235,7 +5245,7 @@ prompts@^2.0.1:
     kleur "^3.0.2"
     sisteransi "^1.0.0"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -5348,6 +5358,13 @@ react-native-actionsheet@^2.4.2:
   resolved "http://registry.npm.taobao.org/react-native-actionsheet/download/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
   integrity sha1-agDdUade8siXQxITDkBa9zGRUA8=
 
+"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera":
+  version "3.8.0"
+  uid "0158ebfd39e053cdaf2385e7088074b375fa268d"
+  resolved "git+https://git@github.com/react-native-community/react-native-camera#0158ebfd39e053cdaf2385e7088074b375fa268d"
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-device-info@^0.24.3:
   version "0.24.3"
   resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.24.3.tgz#f15eff8d09fe418eaf5e7c89ddaabbc5ed718fd7"
@@ -5371,6 +5388,14 @@ react-native-drawer-layout@1.3.2:
   integrity sha1-uXQNdmOh3E+IphucbZPS2UjqQm4=
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
+
+react-native-fs@^2.13.3:
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.16.1.tgz#a8f7e950eaf96e7cf3cf92a5340c5b1ab657d8af"
+  integrity sha512-bD/pkKwE585EPSimsakKXwJUa9RAZFLEel2jFsYaWObLERPcjnoYeIT8nVRImKSEP81EyTNCgXh5t2f3DWqI5g==
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^3.0.0"
 
 react-native-image-picker@^0.28.1:
   version "0.28.1"
@@ -5430,6 +5455,15 @@ react-native-vector-icons@^6.1.0:
     lodash "^4.0.0"
     prop-types "^15.6.2"
     yargs "^13.2.2"
+
+react-native-video@^4.4.1:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-4.4.4.tgz#e33da29990556a9b2d575d6b2e88190fc04d9b50"
+  integrity sha512-GzC9dqvEV3kPQDgfM41bxuhXK0pf6NF+/PSY0nCqzikaapUtOs/69gPHEoG0D6ykI5ru0TxKdc1ZYM6MfZfgRw==
+  dependencies:
+    keymirror "^0.1.1"
+    prop-types "^15.5.10"
+    shaka-player "^2.4.4"
 
 react-native@0.57.4:
   version "0.57.4"
@@ -6001,6 +6035,11 @@ setprototypeof@1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/setprototypeof/download/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
   integrity sha1-0L2FU2iHtv58DYGMuWLZ2RxU5lY=
+
+shaka-player@^2.4.4:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/shaka-player/-/shaka-player-2.5.5.tgz#81e7265f28f631afd3837c06ec6637824bda71e4"
+  integrity sha512-YEWBFapWKjwy2+wIgH9NqoFW9A14LIYNAoJ9cQr3c9BGS7qjqxeiYM/H1BJ8so1FQexpsWUdyjwHvcspdc7/nw==
 
 shebang-command@^1.2.0:
   version "1.2.0"
@@ -6587,6 +6626,11 @@ use@^3.1.0:
   version "3.1.1"
   resolved "http://registry.npm.taobao.org/use/download/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha1-1QyMrHmhn7wg8pEfVuuXP04QBw8=
+
+utf8@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-3.0.0.tgz#f052eed1364d696e769ef058b183df88c87f69d1"
+  integrity sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==
 
 util-deprecate@~1.0.1:
   version "1.0.2"

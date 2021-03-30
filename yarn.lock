@@ -1686,6 +1686,11 @@ balanced-match@^1.0.0:
   resolved "http://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+  integrity sha1-eAqZyE59YAJgNhURxId2E78k9rs=
+
 base64-js@1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/base64-js/download/base64-js-1.1.2.tgz#d6400cac1c4c660976d90d07a04351d89395f5e8"
@@ -2317,6 +2322,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
+
+eme-encryption-scheme-polyfill@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/eme-encryption-scheme-polyfill/-/eme-encryption-scheme-polyfill-2.0.2.tgz#6d3edb6d95951883a499f2d6dafbd84a5574f8c3"
+  integrity sha512-tZXuxVUCV1GmlQBGGVVNAt6lXBUxjDFqIAPAhz4F5Z/TvCi/coojxcZGEO5k+KMt/dWRFmXaK5pxKCMehue/oA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3998,6 +4008,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keymirror@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+  integrity sha1-kYiJ6hP40KQufFVyUO7nE63JXDU=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -5235,7 +5250,7 @@ prompts@^2.0.1:
     kleur "^3.0.2"
     sisteransi "^1.0.0"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -5348,6 +5363,13 @@ react-native-actionsheet@^2.4.2:
   resolved "http://registry.npm.taobao.org/react-native-actionsheet/download/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
   integrity sha1-agDdUade8siXQxITDkBa9zGRUA8=
 
+"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera":
+  version "3.43.1"
+  uid "637080a21be7feeddf8c5d5797b8ee0d98515ee8"
+  resolved "git+https://git@github.com/react-native-community/react-native-camera#637080a21be7feeddf8c5d5797b8ee0d98515ee8"
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-device-info@^0.24.3:
   version "0.24.3"
   resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.24.3.tgz#f15eff8d09fe418eaf5e7c89ddaabbc5ed718fd7"
@@ -5371,6 +5393,14 @@ react-native-drawer-layout@1.3.2:
   integrity sha1-uXQNdmOh3E+IphucbZPS2UjqQm4=
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
+
+react-native-fs@^2.13.3:
+  version "2.16.6"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.16.6.tgz#2901789a43210a35a0ef0a098019bbef3af395fd"
+  integrity sha512-ZWOooD1AuFoAGY3HS2GY7Qx2LZo4oIg6AK0wbC68detxwvX75R/q9lRqThXNKP6vIo2VHWa0fYUo/SrLw80E8w==
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^3.0.0"
 
 react-native-image-picker@^0.28.1:
   version "0.28.1"
@@ -5430,6 +5460,15 @@ react-native-vector-icons@^6.1.0:
     lodash "^4.0.0"
     prop-types "^15.6.2"
     yargs "^13.2.2"
+
+react-native-video@^4.4.1:
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-4.4.5.tgz#d0db799293f8622c7894dd0f8875cb41bfafbde8"
+  integrity sha512-jm1Yf1S3ZqrsbUo+3v9nUaQz/eD4kytzkm8jfDEvKzg/EEzci1EzjLSZqQcNtyLg1fvfkyRbvvzUYhS2SjdKPA==
+  dependencies:
+    keymirror "^0.1.1"
+    prop-types "^15.5.10"
+    shaka-player "^2.4.4"
 
 react-native@0.57.4:
   version "0.57.4"
@@ -6001,6 +6040,13 @@ setprototypeof@1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/setprototypeof/download/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
   integrity sha1-0L2FU2iHtv58DYGMuWLZ2RxU5lY=
+
+shaka-player@^2.4.4:
+  version "2.5.21"
+  resolved "https://registry.yarnpkg.com/shaka-player/-/shaka-player-2.5.21.tgz#37969672e445cabcb4a0ac0dbbe2349df966ae4c"
+  integrity sha512-7LCadr8ohzMaiagWTzV3HzdSBlpswFUWBet2J4WtNr3Z1C3jzKhdjAgNjPPWwypdaAfM2lN+3ez9LKp9wRyH0w==
+  dependencies:
+    eme-encryption-scheme-polyfill "^2.0.1"
 
 shebang-command@^1.2.0:
   version "1.2.0"
@@ -6588,6 +6634,11 @@ use@^3.1.0:
   resolved "http://registry.npm.taobao.org/use/download/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha1-1QyMrHmhn7wg8pEfVuuXP04QBw8=
 
+utf8@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-3.0.0.tgz#f052eed1364d696e769ef058b183df88c87f69d1"
+  integrity sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==
+
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -6825,9 +6876,9 @@ xtend@~4.0.1:
   integrity sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
 
 y18n@^3.2.1:
-  version "3.2.1"
-  resolved "http://registry.npm.taobao.org/y18n/download/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
-  integrity sha1-bRX7qITAhnnA136I53WegR4H+kE=
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.2.tgz#85c901bd6470ce71fc4bb723ad209b70f7f28696"
+  integrity sha512-uGZHXkHnhF0XeeAPgnKfPv1bgKAYyVvmNL1xlKsPYZPaIHxGti2hHqvOCQv71XMsLxu1QjergkqogUnms5D3YQ==
 
 "y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
   version "4.0.0"
